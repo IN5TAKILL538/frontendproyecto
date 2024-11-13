@@ -1,6 +1,6 @@
-import {definestore} from 'pinia'
+import {defineStore} from 'pinia'
 import {ref} from 'vue'
-export const useStore = definestore("store",()=>{
+export const useStore = defineStore("store",()=>{
     const token = ref("")
     const rol = ref("")
 
