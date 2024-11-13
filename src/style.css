@@ -5,12 +5,28 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #0096c7;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#app > div > header{
+  background-color: #023e8a !important;
+}
+
+
+#app > div > div:nth-child(4) > aside{
+  display: none;
+}
+
+#app > div > div.q-page-container{
+  padding: 0% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 a {

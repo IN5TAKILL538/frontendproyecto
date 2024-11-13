@@ -1,4 +1,3 @@
-
 <template>
     <div class="containerLogin">
         <div class="image">
@@ -23,6 +22,7 @@
 
         </div>
     </div>
+    </template>
 
 
 <script setup>

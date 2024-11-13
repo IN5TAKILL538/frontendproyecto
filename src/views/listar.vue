@@ -1,33 +1,45 @@
 <template>
   <div class="q-pa-md">
-    <div class="q-gutter-y-md column" style="width: 300px; max-width: 100%">
-      <q-toolbar class="bg-primary text-white rounded-borders">
-        <q-btn round dense flat icon="menu" class="q-mr-xs" />
-        <q-avatar class="gt-xs">
-          <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
-        </q-avatar>
-
-        <q-space />
-
-        <q-input dark dense standout v-model="text" input-class="text-right" class="q-ml-md">
-          <template v-slot:append>
-            <q-icon v-if="text === ''" name="search" />
-            <q-icon v-else name="clear" class="cursor-pointer" @click="text = ''" />
-          </template>
-        </q-input>
-      </q-toolbar>
-    </div>
+    <q-table
+      title="Treats"
+      :rows="rows"
+      :columns="columns"
+      row-key="name"
+    />
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+const columns = [
+  {
+    name: 'name',
+    required: true,
+    label: 'Dessert (100g serving)',
+    align: 'left',
+    field: row => row.name,
+    format: val => `${val}`,
+    sortable: true
+  },
+  { name: 'id', align: 'center', label: 'ID', field: 'id', sortable: true },
+  { name: 'nombre', label: 'NOMBRE', field: 'nombre', sortable: true },
+  { name: 'preciounitario', align: 'center', label: 'PRECIO U.', field: 'preciounitario', sortable: true},
+  { name: 'stock', align: 'center', label: 'STOCK', field: 'stock' },
+  { name: 'categoria', align: 'center', label: 'CATEGORIA', field: 'categoria' },
+  { name: 'estado', label: 'ESTADO', field: 'estado', sortable: true },
+  
+]
+
+const rows = [
+ {}
+]
 
 export default {
   setup () {
     return {
-      text: ref('')
+      columns,
+      rows
     }
   }
 }
 </script>
+
