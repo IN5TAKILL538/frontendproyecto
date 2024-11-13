@@ -43,10 +43,10 @@
 
       <q-tabs align="center">
         
-        <q-route-tab to="/listar" label="LISTAR" />
-        <q-route-tab to="/agregar" label="AGREGAR" />
-        <q-route-tab to="/editar" label="EDITAR" />
-        <q-route-tab to="/inactivar" label="INACTIVAR" />
+        <q-route-tab to="/articulos" label="ARTICULOS" />
+        <q-route-tab to="/terceros" label="TERCEROS" />
+        <q-route-tab to="/movimietos" label="MOVIMIENTOS" />
+        
       </q-tabs>
     </q-header>
 

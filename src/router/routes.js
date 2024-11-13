@@ -1,8 +1,8 @@
 import login from '../views/login.vue'
-import agregar from '../views/agregar.vue'
-import editar from '../views/editar.vue'
-import inactivar from '../views/inactivar.vue'
-import listar from '../views/listar.vue'
+import Articulos from '../views/Articulos.vue'
+import Terceros from '../views/Terceros.vue'
+
+import Movimientos from '../views/Movimientos.vue'
 import home from '../views/home.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
@@ -10,10 +10,10 @@ const routes =[
     {path:"/", component:login},
    
     {path:"/home", component:home, children:[
-        {path:"/agregar", component:agregar},
-        {path:"/editar", component:editar},
-        {path:"/inactivar", component:inactivar},
-        {path:"/listar", component:listar},
+        {path:"/articulos", component:Articulos},
+        {path:"/terceros", component:Terceros},
+        {path:"/movimientos", component:Movimientos},
+        
     ]}
 ]
 
