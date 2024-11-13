@@ -1,8 +1,8 @@
 <template>
   <q-layout view="hHh LpR fFf">
     <q-header elevated class="bg-primary text-white" height-hint="98">
-      <q-toolbar id="cabeza">
-        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" id="menuClases"/>
+      <q-toolbar id="cabeza" >
+        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" id="menuClases" align="left"/>
 
         <q-toolbar-title> INVENTARIO </q-toolbar-title>
 
@@ -18,6 +18,7 @@
               <q-space />
 
               <q-input
+              align="right"
                 dark
                 dense
                 standout
@@ -25,7 +26,7 @@
                 input-class="text-right"
                 class="q-ml-md"
               >
-                <template v-slot:append>
+                <template v-slot:append >
                   <q-icon v-if="text === ''" name="search" />
                   <q-icon
                     v-else
@@ -41,6 +42,7 @@
       </q-toolbar>
 
       <q-tabs align="center">
+        <q-route-tab to="/login" label="LOGIN" />
         <q-route-tab to="/listar" label="LISTAR" />
         <q-route-tab to="/agragar" label="AGREGAR" />
         <q-route-tab to="/editar" label="EDITAR" />
@@ -325,7 +327,11 @@ export default {
   width: 33%;
 }
 #cabeza{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  
+  
+
 }
+
 </style>
