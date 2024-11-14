@@ -14,7 +14,7 @@ export async function getData(url) {
 export async function postData(url, data) {
     try {
         console.log(data)
-        const response = await apiClient.get(url, data);
+        const response = await apiClient.post(url, data);
         return response.data;
     } catch (error) {
         console.error('erro en la peticion POST', error);
@@ -25,7 +25,7 @@ export async function postData(url, data) {
 export async function putData(url, data) {
     try {
         
-        const response = await apiClient.get(url);
+        const response = await apiClient.put(url);
         return response.data;
     } catch (error) {
         console.error('erro en la peticion PUT', error);

@@ -35,9 +35,10 @@ const iniciarSesion = async ()=>{
     try {
         const response = await postData("/usuarios/login", { email: email.value , contraseña:password.value})
         const token = response.token
+        console.log(token);
         if(token){
             useAuth.token=response.token
-            router.replace("/listar")
+            router.replace("/articulos")
         }
         else{
             console.log("respuesta sin token", response);
