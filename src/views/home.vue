@@ -44,8 +44,10 @@
       <q-tabs align="center">
         
         <q-route-tab to="/articulos" label="ARTICULOS" />
+         <q-route-tab to="/categorias" label=" CATEGORIAS" />
         <q-route-tab to="/terceros" label="TERCEROS" />
-        <q-route-tab to="/movimietos" label="MOVIMIENTOS" />
+        <q-route-tab to="/movimientos" label="MOVIMIENTOS" />
+       
         
       </q-tabs>
     </q-header>
