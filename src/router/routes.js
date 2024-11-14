@@ -1,6 +1,7 @@
 import login from '../views/login.vue'
 import Articulos from '../views/Articulos.vue'
-import Terceros from '../views/Terceros.vue'
+import Clientes from '../views/Clientes.vue'
+import Proveedores from '../views/Proveedores.vue'
 
 import Movimientos from '../views/Movimientos.vue'
 import home from '../views/home.vue'
@@ -12,7 +13,8 @@ const routes =[
    
     {path:"/home", component:home, children:[
         {path:"/articulos", component:Articulos},
-        {path:"/terceros", component:Terceros},
+        {path:"/clientes", component:Clientes},
+        {path:"/proveedores", component:Proveedores},
         {path:"/movimientos", component:Movimientos},
         {path:"/categorias", component:Categorias},
         

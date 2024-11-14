@@ -16,4 +16,14 @@ export const useStore = defineStore("store",()=>{
     function getToken(){
         return token.value
     }
-})  
+
+    return {
+        token,
+        rol,
+        setToken,
+        getToken
+    }
+},
+{
+    persist:true
+})      
