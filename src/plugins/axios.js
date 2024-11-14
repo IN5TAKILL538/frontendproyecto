@@ -1,12 +1,14 @@
 import axios from 'axios'
 
-const token = localStorage.getItem('token')
+const token = JSON.parse(localStorage.getItem('store'))
+console.log(token.token);
+
 
 const apiClient = axios.create({
     baseURL: 'http://localhost:3999/api',
     headers: {
-        "token":token   
+        "x-token":token.token
     }
-});
+}); 
 
 export default apiClient

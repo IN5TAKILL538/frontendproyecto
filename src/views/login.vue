@@ -37,7 +37,7 @@ const iniciarSesion = async ()=>{
         const token = response.token
         console.log(token);
         if(token){
-            useAuth.token=response.token
+            useAuth.setToken(response.token)
             router.replace("/articulos")
         }
         else{

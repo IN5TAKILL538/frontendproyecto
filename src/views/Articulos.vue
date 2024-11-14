@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md">
     <q-table
-      title="Treats"
+      title="Articulos"
       :rows="rows"
       :columns="columns"
       row-key="name"
@@ -9,7 +9,17 @@
   </div>
 </template>
 
-<script>
+<script setup>
+
+
+
+import { onMounted, ref } from 'vue';
+import { useStore } from '../store/useStore.js';
+import { getData } from '../services/apiClient.js';
+const mainStore = useStore()
+const rows = ref([])
+
+
 const columns = [
   {
     name: 'name',
@@ -29,16 +39,25 @@ const columns = [
   
 ]
 
-const rows = [
-  
-]
+    const dataArticulos = async ()=>{
+      
+        try {
+            const response = await getData("/articulos/articulos")
+            if(response.articulos){
+                rows.value = response.articulos
+                console.log("articulos recibidos"+ articulos.value);
+            }
+            else{
+                console.log("respuesta sin articulos", response);
+            }
+        } catch (error) {
+            console.log("error al obtener articulos", error.message);
+        }
+    };
 
-export default {
-  setup () {
-    return {
-      columns,
-      rows
-    }
-  }
-}
+onMounted(()=>{
+  dataArticulos()
+})
+
+
 </script>
