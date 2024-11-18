@@ -51,8 +51,6 @@ let columns = ref([
   },
 ]);
 const dataArticulos = async () => {
- 
-  
   try {
     const response = await getData("/articulos/articulos");
     if (response.articulos) {
