@@ -45,7 +45,6 @@ const columns = [
             const response = await getData("/articulos/articulos")
             if(response.articulos){
                 rows.value = response.articulos
-                console.log("articulos recibidos"+ articulos.value);
             }
             else{
                 console.log("respuesta sin articulos", response);

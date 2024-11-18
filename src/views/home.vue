@@ -41,12 +41,12 @@
         </div>
       </q-toolbar>
 
-      <q-tabs align="center">
+      <q-tabs>
         
         <q-route-tab to="/articulos" label="ARTICULOS" />
          <q-route-tab to="/categorias" label=" CATEGORIAS" />
-        <q-route-tab to="/terceros" label="TERCEROS" />
-        <q-route-tab to="/movimientos" label="MOVIMIENTOS" />
+        <q-route-tab to="/clientes" label="CLIENTES" />
+        <q-route-tab to="/proveedores" label="PROVEEDORES" />
        
         
       </q-tabs>
@@ -255,12 +255,7 @@
     <q-drawer show-if-above v-model="rightDrawerOpen" side="right">
       <p>adios</p>
     </q-drawer>
-
-    <q-page-container>
-      <router-view />
-    </q-page-container>
-
-   
+    <router-view/>
   </q-layout>
 </template>
 
