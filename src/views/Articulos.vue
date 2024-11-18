@@ -1,74 +1,4 @@
-<script setup>
-import { onMounted, ref } from "vue";
-import { useStore } from "../store/useStore.js";
-import { getData } from "../services/apiClient.js";
-const mainStore = useStore();
 
-const rows = ref([]);
-
-let columns = ref([
-  {
-    name: "nombre",
-    align: "center",
-    label: "Nombre",
-    field: "nombre",
-    sortable: true,
-  },
-  {
-    name: "precio",
-    align: "center",
-    label: "Precio",
-    field: "precio",
-    sortable: true,
-  },
-  {
-    name: "stock",
-    align: "center",
-    label: "stock",
-    field: "stock",
-    sortable: true,
-  },
-
-  {
-    name: "avatar",
-    align: "center",
-    label: "Imagen",
-    field: "avatar",
-    sortable: true,
-  },
-  {
-    name: "status",
-    align: "center",
-    label: "Categoria",
-    field: "status",
-    sortable: true,
-  },
-  {
-    name: "opciones",
-    align: "center",
-    label: "Estado",
-    sortable: true,
-  },
-]);
-const dataArticulos = async () => {
-  try {
-    const response = await getData("/articulos/articulos");
-    if (response.articulos) {
-      rows.value = response.articulos;
-      console.log("articulos recibidos" );
-    } else {
-      console.log("respuesta sin articulos", response);
-    }
-  } catch (error) {
-    
-    console.log("error al obtener articulos", error.message);
-  }
-};
-
-onMounted(() => {
-  dataArticulos();
-});
-</script>
 
 <template>
   <div class="contenedorTabla">
@@ -101,6 +31,87 @@ onMounted(() => {
     </q-table>
   </div>
 </template>
+
+
+
+
+
+<script setup>
+import { onMounted, ref } from "vue";
+import { useStore } from "../store/useStore.js";
+import { getData } from "../services/apiClient.js";
+const mainStore = useStore();
+
+const rows = ref([]);
+
+let columns = ref([
+
+  {
+    name: "nombre",
+    align: "center",
+    label: "Nombre",
+    field: "nombre",
+    sortable: true,
+  },
+  {
+    name: "precio",
+    align: "center",
+    label: "Precio",
+    field: "precio",
+    sortable: true,
+  },
+  {
+    name: "stock",
+    align: "center",
+    label: "stock",
+    field: "stock",
+    sortable: true,
+  },
+
+
+  {
+    name: "avatar",
+    align: "center",
+    label: "Imagen",
+    field: "avatar",
+    sortable: true,
+  },
+  {
+    name: "status",
+    align: "center",
+    label: "Categoria",
+    field: "status",
+    sortable: true,
+  },
+  {
+    name: "opciones",
+    align: "center",
+    label: "Estado",
+    sortable: true,
+  },
+]);
+const dataArticulos = async () => {
+  try {
+    const response = await getData("/articulos/articulos");
+    if (response.articulos) {
+      rows.value = response.articulos;
+      
+      console.log("articulos recibidos_" );
+    } else {
+      console.log("respuesta sin articulos", response);
+    }
+  } catch (error) {
+    
+    console.log("error al obtener articulos", error.message);
+  }
+};
+
+onMounted(() => {
+  dataArticulos();
+});
+
+</script>
+
 <style>
 .contenedorTabla {
   display: flex;

@@ -4,7 +4,7 @@ import Clientes from '../views/Clientes.vue'
 import Proveedores from '../views/Proveedores.vue'
 
 import Movimientos from '../views/Movimientos.vue'
-import home from '../views/home.vue'
+import home from '../views/Home.vue'
 import Categorias from '../views/categorias.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
