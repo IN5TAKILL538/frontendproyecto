@@ -45,14 +45,16 @@
         
         <q-route-tab to="/articulos" label="ARTICULOS" />
          <q-route-tab to="/categorias" label=" CATEGORIAS" />
-        <q-route-tab to="/terceros" label="TERCEROS" />
+        <q-route-tab to="/clientes" label="CLIENTES" />
+        <q-route-tab to="/proveedores" label="PROVEEDORES" />
+
         <q-route-tab to="/movimientos" label="MOVIMIENTOS" />
        
         
       </q-tabs>
     </q-header>
 
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
+    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered id="filtro">
       <p class="textcenter">FILTROS</p>
       <q-btn
         :loading="loading[3]"
@@ -82,7 +84,7 @@
         @click="simulateProgress(4)"
         style="width: 200px"
       >
-        Button
+        
         <template v-slot:loading>
           <q-spinner-hourglass class="on-left" />
           Loading...
@@ -252,9 +254,7 @@
         </q-item>
       </q-menu>
     </q-btn>
-    <q-drawer show-if-above v-model="rightDrawerOpen" side="right">
-      <p>adios</p>
-    </q-drawer>
+  
 
     <q-page-container>
       <router-view />
