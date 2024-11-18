@@ -1,3 +1,4 @@
+
 <template>
     <div>
       <q-table
@@ -80,3 +81,4 @@
       })
 
   </script>
+

@@ -5,11 +5,11 @@ import Clientes from '../views/Clientes.vue'
 import Proveedores from '../views/Proveedores.vue'
 import Movimientos from '../views/Movimientos.vue'
 import Categorias from '../views/Categorias.vue'
+
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes =[
     {path:"/", component:Login},
-   
     {path:"/home", component:Home, children:[
         {path:"/articulos", component:Articulos},
         {path:"/clientes", component:Clientes},
@@ -19,7 +19,6 @@ const routes =[
         
     ]}
 ]
-
 
 export const router = createRouter({
     history:createWebHashHistory(),

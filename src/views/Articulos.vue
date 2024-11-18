@@ -1,22 +1,14 @@
-
 <template>
   <div class="contenedorTabla">
     <q-table title="ARTICULOS" :rows="rows" :columns="columns" row-key="name">
       <template v-slot:body-cell-avatar="props">
         <q-td :props="props" class="q-pa-sm">
-          <img
-            :src="props.row.imagen"
-            alt=""
-            style="height: 50px; width: 50px"
-          />
+          <img :src="props.row.imagen" alt="" style="height: 50px; width: 50px" />
         </q-td>
       </template>
-
       <template v-slot:body-cell-status="props">
         <q-td :props="props" class="q-pa-sm">
-          <span style="background-color: green" v-if="props.row.status == 1"
-            >Activo</span
-          >
+          <span style="background-color: green" v-if="props.row.status == 1">Activo</span>
           <span style="background-color: red" v-else>Inactivo</span>
         </q-td>
       </template>
@@ -30,13 +22,7 @@
     </q-table>
   </div>
 </template>
-<style>
-.contenedorTabla {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-</style>
+
 
 
 <script setup>
@@ -91,27 +77,25 @@ let columns = ref([
     align: "center",
     label: "Estado",
     sortable: true,
-  },
+  }, 
 ]);
 
+const dataArticulos = async () => {
+  try {
+    const response = await getData("/articulos/articulos")
+    if (response.articulos) {
+      rows.value = response.articulos
+      console.log("articulos recibidos" + response.articulos);
+    }
+    else {
+      console.log("respuesta sin articulos", response);
+    }
+  } catch (error) {
+    console.log("error al obtener articulos", error.message);
+  }
+};
 
-    const dataArticulos = async ()=>{
-      
-        try {
-            const response = await getData("/articulos/articulos")
-            if(response.articulos){
-                rows.value = response.articulos
-                console.log("articulos recibidos" + response.articulos);
-            }
-            else{
-                console.log("respuesta sin articulos", response);
-            }
-        } catch (error) {
-            console.log("error al obtener articulos", error.message);
-        }
-    };
-
-onMounted(()=>{
+onMounted(() => {
   dataArticulos()
 })
 
