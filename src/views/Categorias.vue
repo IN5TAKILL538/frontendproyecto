@@ -28,6 +28,8 @@
     import { onMounted, ref } from "vue";
     import { getData } from "../services/apiClient.js";
 
+    
+
     const rows = ref([]);
 
     let columns = ref([
@@ -39,7 +41,7 @@
         sortable: true,
       },
       {
-        name: "Descripcion",
+        name: "descripcion",
         align: "center",
         label: "Descripcion",
         field: "descripcion",
@@ -57,6 +59,7 @@
         field: "Opciones",
       }
     ]);
+    
 
       const dataCategorias = async ()=>{
         try {

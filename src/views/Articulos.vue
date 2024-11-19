@@ -15,10 +15,12 @@
 
       <template v-slot:body-cell-status="props">
         <q-td :props="props" class="q-pa-sm">
-          <span style="background-color: green" v-if="props.row.status == 1"
-            >Activo</span
+          <span style="background-color: green" v-if="props.row.estado == 1"
+            ><button class="activo">✅Activo✅</button></span
           >
-          <span style="background-color: red" v-else>Inactivo</span>
+          <span style="background-color: red" v-else
+            ><button class="inactivo">❌Inactivo❌</button>
+          </span>
         </q-td>
       </template>
       <template v-slot:body-cell-opciones="props">
@@ -45,7 +47,6 @@ const mainStore = useStore();
 const rows = ref([]);
 
 let columns = ref([
-
   {
     name: "nombre",
     align: "center",
@@ -67,7 +68,6 @@ let columns = ref([
     field: "stock",
     sortable: true,
   },
-
 
   {
     name: "avatar",
@@ -95,13 +95,12 @@ const dataArticulos = async () => {
     const response = await getData("/articulos/articulos");
     if (response.articulos) {
       rows.value = response.articulos;
-      
-      console.log("articulos recibidos_" );
+
+      console.log("articulos recibidos_");
     } else {
       console.log("respuesta sin articulos", response);
     }
   } catch (error) {
-    
     console.log("error al obtener articulos", error.message);
   }
 };
@@ -109,7 +108,6 @@ const dataArticulos = async () => {
 onMounted(() => {
   dataArticulos();
 });
-
 </script>
 
 <style>
