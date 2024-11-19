@@ -253,7 +253,6 @@
       </q-menu>
     </q-btn>
     <q-drawer show-if-above v-model="rightDrawerOpen" side="right">
-      <p>adios</p>
     </q-drawer>
     <router-view/>
   </q-layout>

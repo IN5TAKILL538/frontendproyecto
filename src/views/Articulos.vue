@@ -14,13 +14,168 @@
       </template>
       <template v-slot:body-cell-opciones="props">
         <q-td :props="props" class="q-pa-sm">
-          <button>📝</button>
+          <button @click="card = true ; articulo= props.row">📝</button>
           <button v-if="props.row.status == 1">❌</button>
           <button v-else>✅</button>
         </q-td>
       </template>
     </q-table>
   </div>
+  <q-dialog v-model="card">
+    <q-card class="my-card">
+      <div class="q-pa-md">
+        <div class="q-gutter-y-md column" style="min-width: 400px">
+    
+
+          <q-field
+            color="orange"
+            standout
+            bottom-slots
+            :model-value="text"
+            label="Nombre"
+            stack-label
+            counter
+            clearable
+          >
+            <template v-slot:prepend>
+              <q-icon name="place" />
+            </template>
+            <template v-slot:control>
+              <input class="self-center full-width no-outline" type="text" v-model="articulo.nombre" >
+            </template>
+            <template v-slot:append>
+              <q-icon name="favorite" />
+            </template>
+
+            <template v-slot:hint> Field hint </template>
+          </q-field>
+
+                    <q-field
+            color="orange"
+            standout
+            bottom-slots
+            :model-value="text"
+            label="Precio"
+            stack-label
+            counter
+            clearable
+          >
+            <template v-slot:prepend>
+              <q-icon name="place" />
+            </template>
+            <template v-slot:control>
+            <input class="self-center full-width no-outline" type="text" v-model="articulo.precio" >
+            </template>
+            <template v-slot:append>
+              <q-icon name="favorite" />
+            </template>
+
+            <template v-slot:hint> Field hint </template>
+          </q-field>
+
+                    <q-field
+            color="orange"
+            standout
+            bottom-slots
+            :model-value="text"
+            label="Stock"
+            stack-label
+            counter
+            clearable
+          >
+            <template v-slot:prepend>
+              <q-icon name="place" />
+            </template>
+            <template v-slot:control>
+              <input class="self-center full-width no-outline" type="text" v-model="articulo.stock" >
+            </template>
+            <template v-slot:append>
+              <q-icon name="favorite" />
+            </template>
+
+            <template v-slot:hint> Field hint </template>
+          </q-field>
+
+                    <q-field
+            color="orange"
+            standout
+            bottom-slots
+            :model-value="text"
+            label="Imagen"
+            stack-label
+            counter
+            clearable
+          >
+            <template v-slot:prepend>
+              <q-icon name="place" />
+            </template>
+            <template v-slot:control>
+              <input class="self-center full-width no-outline" type="text" v-model="articulo.imagen" >
+            </template>
+            <template v-slot:append>
+              <q-icon name="favorite" />
+            </template>
+
+            <template v-slot:hint> Field hint </template>
+          </q-field>
+
+                    <q-field
+            color="orange"
+            standout
+            bottom-slots
+            :model-value="text"
+            label="Categoria"
+            stack-label
+            counter
+            clearable
+          >
+            <template v-slot:prepend>
+              <q-icon name="place" />
+            </template>
+            <template v-slot:control>
+              <input class="self-center full-width no-outline" type="text" v-model="articulo.categoria" >
+            </template>
+            <template v-slot:append>
+              <q-icon name="favorite" />
+            </template>
+
+            <template v-slot:hint> Field hint </template>
+          </q-field>
+
+
+          <q-field
+            color="orange"
+            standout
+            bottom-slots
+            :model-value="text"
+            label="Estado"
+            stack-label
+            counter
+            clearable
+          >
+            <template v-slot:prepend>
+              <q-icon name="place" />
+            </template>
+            <template v-slot:control>
+              <input class="self-center full-width no-outline" type="text" v-model="articulo.estado" >
+            </template>
+            <template v-slot:append>
+              <q-icon name="favorite" />
+            </template>
+
+            <template v-slot:hint> Field hint </template>
+          </q-field>
+
+          
+        </div>
+      </div>
+
+      <q-card-actions align="right">  
+        <q-btn @click="editarArticulo(articulo._id)" v-close-popup flat color="primary" label="Reserve" />
+        <q-btn v-close-popup flat color="primary" round icon="event" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 
@@ -28,8 +183,17 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useStore } from "../store/useStore.js";
-import { getData } from "../services/apiClient.js";
+import { getData, putData } from "../services/apiClient.js";
 const mainStore = useStore();
+const articulo = ref({});
+
+
+//modal
+const card = ref(false);
+let text = ref("Field content")
+
+//fin modal
+
 
 const rows = ref([]);
 
@@ -77,7 +241,7 @@ let columns = ref([
     align: "center",
     label: "Estado",
     sortable: true,
-  }, 
+  },
 ]);
 
 const dataArticulos = async () => {
@@ -95,9 +259,35 @@ const dataArticulos = async () => {
   }
 };
 
-onMounted(() => {
-  dataArticulos()
-})
+
+  const editarArticulo = async (id) => {
+    try {
+      console.log("aarucituclo" , articulo.value);
+      
+      const response = await putData("/articulos/articulo/" +id ,
+        {
+          nombre: articulo.value.nombre,
+          precio: articulo.value.precio,
+          stock: articulo.value.stock,
+          imagen: articulo.value.imagen,
+          categoria: articulo.value.categoria,
+          estado: articulo.value.estado
+        })  
+
+      if (response.articulo) {
+        console.log("articulo editado" + response.articulo);
+      }
+      else {
+        console.log("error al editar el articulo", error.message);
+      }
+    } catch (error) {
+      console.log("error al intentat editar");
+    }
+  }
+
+  onMounted(() => {
+    dataArticulos()
+  })
 
 
 </script>

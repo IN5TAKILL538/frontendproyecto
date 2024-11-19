@@ -25,11 +25,11 @@ export async function postData(url, data) {
 export async function putData(url, data) {
     try {
         
-        const response = await apiClient.put(url);
+        const response = await apiClient.put(url,data);
         return response.data;
     } catch (error) {
         console.error('erro en la peticion PUT', error);
-        throw error;
+        throw error;    
     }
 }
 
