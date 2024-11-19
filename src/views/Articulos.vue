@@ -26,8 +26,8 @@
       <template v-slot:body-cell-opciones="props">
         <q-td :props="props" class="q-pa-sm">
           <button>📝</button>
-          <button v-if="props.row.status == 1">❌</button>
-          <button v-else>✅</button>
+          <button v-if="props.row.status == 1" @click="estatus()">❌</button>
+          <button v-else @click="estatus()">✅</button>
         </q-td>
       </template>
     </q-table>
@@ -79,8 +79,15 @@ let columns = ref([
   {
     name: "status",
     align: "center",
-    label: "Categoria",
+    label: "Estado",
     field: "status",
+    sortable: true,
+  },
+  {
+    name: "categoria",
+    align: "center",
+    label: "Categoria",
+    field: "idcategoria",
     sortable: true,
   },
   {
