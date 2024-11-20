@@ -5,7 +5,7 @@ import Clientes from '../views/Clientes.vue'
 import Entradas from '../views/Entradas.vue'
 import Salidas from '../views/Salidas.vue'
 import DevSalidas from '../views/devolucionesSalidas.vue'
-import DevEntradas from '../views/Proveedores.vue'
+import DevEntradas from '../views/devolucionesEntradas.vue'
 import Proveedores from '../views/Proveedores.vue'
 import Categorias from '../views/Categorias.vue'
 

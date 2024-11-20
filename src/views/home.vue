@@ -47,7 +47,10 @@
          <q-route-tab to="/categorias" label=" CATEGORIAS" />
         <q-route-tab to="/clientes" label="CLIENTES" />
         <q-route-tab to="/proveedores" label="PROVEEDORES" />
-        <q-route-tab to="/movimientos" label="MOVIMIENTOS" />
+        <q-route-tab to="/salidas" label="SALIDAS" />
+        <q-route-tab to="/entradas" label="ENTRADAS" />
+        <q-route-tab to="/deventradas" label="DEVOLUCIONESENTRADAS" />
+        <q-route-tab to="/devsalidas" label="DEVOLUCIONESSALIDAS" />
 
         </q-tabs>
     </q-header>
