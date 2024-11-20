@@ -231,27 +231,7 @@
       </q-btn>
     </q-drawer>
 
-    <q-btn
-      :loading="loading[18]"
-      color="primary"
-      @click="simulateProgress(18)"
-      style="width: 290px"
-    >
-      Button
-      <template v-slot:loading>
-        <q-spinner-hourglass class="on-left" />
-        Loading...
-      </template>
-
-      <q-menu fit anchor="center right" self="center left">
-        <q-item clickable>
-          <q-item-section>New tab</q-item-section>
-        </q-item>
-        <q-item clickable>
-          <q-item-section>New incognito tab</q-item-section>
-        </q-item>
-      </q-menu>
-    </q-btn>
+ 
     <q-drawer show-if-above v-model="rightDrawerOpen" side="right">
     </q-drawer>
     <router-view/>
@@ -321,4 +301,13 @@ export default {
 
 }
 
+</style>
+
+<style>
+
+
+/**esto esconde el modal de la izquierda */
+#app > div > div > div:nth-child(3) > aside{
+  display: none !important;
+}
 </style>

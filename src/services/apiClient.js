@@ -4,6 +4,8 @@ export async function getData(url) {
     try {
         
         const response = await apiClient.get(url);
+        console.log(response);
+        
         return response.data;
     } catch (error) {
         console.error('erro en la peticion GET', error);
