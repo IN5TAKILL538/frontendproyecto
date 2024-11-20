@@ -1,4 +1,7 @@
 <template>
+  <q-btn @click="showBtn = true ; card = true" icon="add">Agregar articulo</q-btn>
+
+
   <div class="contenedorTabla">
     <q-table title="ARTICULOS" :rows="rows" :columns="columns" row-key="name">
       <template v-slot:body-cell-avatar="props">
@@ -133,7 +136,7 @@
               <q-icon name="place" />
             </template>
             <template v-slot:control>
-              <input class="self-center full-width no-outline" type="text" v-model="articulo.categoria" >
+              <input class="self-center full-width no-outline" type="text" v-model="articulo.categoria.nombre" >
             </template>
             <template v-slot:append>
               <q-icon name="favorite" />
@@ -171,7 +174,8 @@
       </div>
 
       <q-card-actions align="right">  
-        <q-btn @click="editarArticulo(articulo._id)" v-close-popup flat color="primary" label="Reserve" />
+        <q-btn v-show="showBtn == false" @click="editarArticulo(articulo._id)" v-close-popup flat color="primary" label="Reserve" />
+        <q-btn v-show="showBtn == true"   @click="agregarArticulo()" v-close-popup flat color="primary" label="agregar" ></q-btn>
         <q-btn v-close-popup flat color="primary" round icon="event" />
       </q-card-actions>
     </q-card>
@@ -183,11 +187,11 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useStore } from "../store/useStore.js";
-import { getData, putData } from "../services/apiClient.js";
+import { getData, postData, putData } from "../services/apiClient.js";
 const mainStore = useStore();
 const articulo = ref({});
-
-
+const showBtn = ref(false)
+const newArticulo = ref({})
 //modal
 const card = ref(false);
 let text = ref("Field content")
@@ -233,10 +237,10 @@ let columns = ref([
     name: "categoria",
     align: "center",
     label: "Categoria",
-    field: "categoria",
+    field: (row)=> row.categoria.nombre,
     sortable: true,
   },
-   {
+{
     name: "estado",
     align: "center",
     label: "Estado",
@@ -256,7 +260,7 @@ const dataArticulos = async () => {
     const response = await getData("/articulos/articulos")
     if (response.articulos) {
       rows.value = response.articulos
-      console.log("articulos recibidos" + response.articulos);
+      console.log("articulos recibidos" + response);
     }
     else {
       console.log("respuesta sin articulos", response);
@@ -290,6 +294,32 @@ const dataArticulos = async () => {
       }
     } catch (error) {
       console.log("error al intentat editar");
+    }
+  }
+
+
+  const agregarArticulo = async()=>{
+    try {
+      const response = await postData("/articulos",
+        {
+          nombre: articulo.value.nombre,
+          precio: articulo.value.precio,
+          stock: articulo.value.stock,
+          imagen: articulo.value.imagen,
+          categoria: articulo.value.categoria,
+          estado: articulo.value.estado
+        })
+
+        if(response.articulos){
+          console.log("articulo agregado" + articulo.value);
+          getData()
+        }
+        else{
+          console.log("error al agregar el articulo" , error.message);
+        }
+
+    } catch (error) {
+      console.log("error al realizar la operacion");
     }
   }
 
