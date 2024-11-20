@@ -32,9 +32,21 @@
       </template>
       <template v-slot:body-cell-opciones="props">
         <q-td :props="props" class="q-pa-sm">
-          <button @click="card = true">📝</button>
-          <button v-if="props.row.estado == 1">❌</button>
-          <button v-else>✅</button>
+          <button
+            @click="
+              card = true;
+              articulo = props.row;
+            "
+            class="icono"
+          >
+            <img src="../assets/agregar2.gif" alt="" />
+          </button>
+          <button v-if="props.row.estado == 1" class="icono">
+            <img src="../assets/inactivar2.gif" alt="" />
+          </button>
+          <button v-else class="icono">
+            <img src="../assets/verificado.gif" alt="" />
+          </button>
         </q-td>
       </template>
     </q-table>
@@ -43,8 +55,6 @@
     <q-card class="my-card">
       <div class="q-pa-md">
         <div class="q-gutter-y-md column" style="min-width: 400px">
-    
-
           <q-field
             color="orange"
             standout
@@ -70,7 +80,7 @@
             <template v-slot:hint> Field hint </template>
           </q-field>
 
-                    <q-field
+          <q-field
             color="orange"
             standout
             bottom-slots
@@ -95,7 +105,7 @@
             <template v-slot:hint> Field hint </template>
           </q-field>
 
-                    <q-field
+          <q-field
             color="orange"
             standout
             bottom-slots
@@ -120,7 +130,7 @@
             <template v-slot:hint> Field hint </template>
           </q-field>
 
-                    <q-field
+          <q-field
             color="orange"
             standout
             bottom-slots
@@ -145,7 +155,7 @@
             <template v-slot:hint> Field hint </template>
           </q-field>
 
-                    <q-field
+          <q-field
             color="orange"
             standout
             bottom-slots
@@ -169,8 +179,6 @@
 
             <template v-slot:hint> Field hint </template>
           </q-field>
-
-          
         </div>
       </div>
 
@@ -185,7 +193,7 @@
 import { onMounted, ref } from "vue";
 
 const card = ref(false);
-let text = ref("Field content")
+let text = ref("Field content");
 import { useStore } from "../store/useStore.js";
 import { getData } from "../services/apiClient.js";
 const mainStore = useStore();
