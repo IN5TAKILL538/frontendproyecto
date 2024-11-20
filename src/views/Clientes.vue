@@ -31,7 +31,7 @@
         <q-td :props="props" class="q-pa-sm">
 
          <button>📝</button>
-         <button v-if="props.row.status==1">❌</button>
+         <button v-if="props.row.estado==1">❌</button>
          <button v-else>✅</button>
 
         </q-td>
