@@ -47,7 +47,10 @@
          <q-route-tab to="/categorias" label=" CATEGORIAS" />
         <q-route-tab to="/clientes" label="CLIENTES" />
         <q-route-tab to="/proveedores" label="PROVEEDORES" />
-        <q-route-tab to="/movimientos" label="MOVIMIENTOS" />
+        <q-route-tab to="/entradas" label="ENTRADAS" />
+        <q-route-tab to="/salidas" label="SALIDAS" />
+        <q-route-tab to="/deventradas" label="DEV-ENTRADAS" />
+        <q-route-tab to="/devsalidas" label="DEV-SALIDAS" />
 
         </q-tabs>
     </q-header>
@@ -60,7 +63,7 @@
         @click="simulateProgress(3)"
         style="width: 200px"
       >
-        Portatiles
+        ARTICULOS
         <template v-slot:loading>
           <q-spinner-hourglass class="on-left" />
           Loading...
@@ -82,7 +85,7 @@
         @click="simulateProgress(4)"
         style="width: 200px"
       >
-        
+        CATEGORIAS
         <template v-slot:loading>
           <q-spinner-hourglass class="on-left" />
           Loading...
@@ -104,7 +107,7 @@
         @click="simulateProgress(5)"
         style="width: 200px"
       >
-        Button
+        CLIENTES
         <template v-slot:loading>
           <q-spinner-hourglass class="on-left" />
           Loading...
@@ -126,7 +129,7 @@
         @click="simulateProgress(6)"
         style="width: 200px"
       >
-        Button
+        PROVEEDORES
         <template v-slot:loading>
           <q-spinner-hourglass class="on-left" />
           Loading...
@@ -148,7 +151,7 @@
         @click="simulateProgress(7)"
         style="width: 200px"
       >
-        Button
+        ENTRADAS
         <template v-slot:loading>
           <q-spinner-hourglass class="on-left" />
           Loading...
@@ -170,7 +173,7 @@
         @click="simulateProgress(8)"
         style="width: 200px"
       >
-        Button
+        SALIDAS
         <template v-slot:loading>
           <q-spinner-hourglass class="on-left" />
           Loading...
@@ -192,7 +195,7 @@
         @click="simulateProgress(9)"
         style="width: 200px"
       >
-        Button
+        DEV-ENTRADAS
         <template v-slot:loading>
           <q-spinner-hourglass class="on-left" />
           Loading...
@@ -214,7 +217,7 @@
         @click="simulateProgress(10)"
         style="width: 200px"
       >
-        Button
+        DEV-SALIDAS
         <template v-slot:loading>
           <q-spinner-hourglass class="on-left" />
           Loading...

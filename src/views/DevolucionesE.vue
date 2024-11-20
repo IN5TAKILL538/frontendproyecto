@@ -17,9 +17,9 @@
         </template>
         <template v-slot:body-cell-opciones="props">
           <q-td :props="props" class="q-pa-sm">
-            <button>📝</button>
-            <button v-if="props.row.status == 1">❌</button>
-            <button v-else>✅</button>
+             <button @click="card = true ; articulo = props.row" class="icono"><img src="../assets/agregar2.gif" alt="" > </button>
+          <button v-if="props.row.estado == 1" class="icono"><img src="../assets/inactivar2.gif" alt="" ></button>
+          <button v-else class="icono"><img src="../assets/verificado.gif" alt="" ></button>
           </q-td>
         </template>
         

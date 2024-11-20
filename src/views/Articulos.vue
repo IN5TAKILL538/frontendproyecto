@@ -9,7 +9,7 @@
           <img :src="props.row.imagen" alt="" style="height: 50px; width: 50px" />
         </q-td>
       </template>
-      <template v-slot:body-cell-status="props">
+      <template v-slot:body-cell-estado="props">
         <q-td :props="props" class="q-pa-sm">
           <span style="background-color: green" v-if="props.row.status == 1">Activo</span>
           <span style="background-color: red" v-else>Inactivo</span>
@@ -17,9 +17,9 @@
       </template>
       <template v-slot:body-cell-opciones="props">
         <q-td :props="props" class="q-pa-sm">
-          <button @click="card = true ; articulo= props.row">📝</button>
-          <button v-if="props.row.status == 1">❌</button>
-          <button v-else>✅</button>
+           <button @click="card = true ; articulo = props.row" class="icono"><img src="../assets/agregar2.gif" alt="" > </button>
+          <button v-if="props.row.estado == 1" class="icono"><img src="../assets/inactivar2.gif" alt="" ></button>
+          <button v-else class="icono"><img src="../assets/verificado.gif" alt="" ></button>
         </q-td>
       </template>
     </q-table>
@@ -47,7 +47,7 @@
               <input class="self-center full-width no-outline" type="text" v-model="articulo.nombre" >
             </template>
             <template v-slot:append>
-              <q-icon name="favorite" />
+             
             </template>
 
             <template v-slot:hint> Field hint </template>
@@ -70,7 +70,7 @@
             <input class="self-center full-width no-outline" type="text" v-model="articulo.precio" >
             </template>
             <template v-slot:append>
-              <q-icon name="favorite" />
+              
             </template>
 
             <template v-slot:hint> Field hint </template>
@@ -93,7 +93,7 @@
               <input class="self-center full-width no-outline" type="text" v-model="articulo.stock" >
             </template>
             <template v-slot:append>
-              <q-icon name="favorite" />
+              
             </template>
 
             <template v-slot:hint> Field hint </template>
@@ -116,7 +116,7 @@
               <input class="self-center full-width no-outline" type="text" v-model="articulo.imagen" >
             </template>
             <template v-slot:append>
-              <q-icon name="favorite" />
+              
             </template>
 
             <template v-slot:hint> Field hint </template>
@@ -139,7 +139,7 @@
               <input class="self-center full-width no-outline" type="text" v-model="articulo.categoria.nombre" >
             </template>
             <template v-slot:append>
-              <q-icon name="favorite" />
+              
             </template>
 
             <template v-slot:hint> Field hint </template>
@@ -163,7 +163,7 @@
               <input class="self-center full-width no-outline" type="text" v-model="articulo.estado" >
             </template>
             <template v-slot:append>
-              <q-icon name="favorite" />
+              
             </template>
 
             <template v-slot:hint> Field hint </template>
@@ -234,7 +234,7 @@ let columns = ref([
     sortable: true,
   },
   {
-    name: "status",
+    name: "categoria",
     align: "center",
     label: "Categoria",
 
