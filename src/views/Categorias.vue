@@ -1,16 +1,16 @@
 <template>
   <div>
     <q-table title="CATEGORIAS" :rows="rows" :columns="columns" row-key="name">
-      <template v-slot:body-cell-estado="props">
+      <template v-slot:body-cell-status="props">
         <q-td :props="props" class="q-pa-sm">
-          <span style="background-color: green;" v-if="props.row.estado==1"><button class="activo">✅Activo✅</button></span>
-          <span style="background-color: red;" v-else><button class="inactivo">❌Inactivo❌</button> </span>
+          <span style="background-color: green" v-if="props.row.status == 1">Activo</span>
+          <span style="background-color: red" v-else>Inactivo</span>
         </q-td>
       </template>
       <template v-slot:body-cell-opciones="props">
         <q-td :props="props" class="q-pa-sm">
           <button @click="card = true ; categoria = props.row">📝</button>
-          <button v-if="props.row.estado == 1">❌</button>
+          <button v-if="props.row.status == 1">❌</button>
           <button v-else>✅</button>
         </q-td>
       </template>
@@ -108,10 +108,10 @@ let columns = ref([
     field: "descripcion",
   },
   {
-    name: "estado",
+    name: "status",
     align: "center",
     label: "Estado",
-    field: "estado",
+    field: "status",
   },
   {
     name: "opciones",
@@ -141,7 +141,7 @@ const categoria = ref({})
 
 const editarCategoria = async (id) => {
   try {
-    const response = await putData("/categorias/categorias/" + id,
+    const response = await putData("/categorias/categoria/" + id,
       {
         nombre: categoria.value.nombre,
         descripcion: categoria.value.descripcion,

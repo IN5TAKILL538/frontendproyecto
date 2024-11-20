@@ -9,16 +9,16 @@
           <img :src="props.row.imagen" alt="" style="height: 50px; width: 50px" />
         </q-td>
       </template>
-      <template v-slot:body-cell-estado="props">
+      <template v-slot:body-cell-status="props">
         <q-td :props="props" class="q-pa-sm">
-          <span style="background-color: green;" v-if="props.row.estado == 1"><button class="activo">✅Activo✅</button></span>
-          <span style="background-color: red;" v-else><button class="inactivo">❌Inactivo❌</button> </span>
+          <span style="background-color: green" v-if="props.row.status == 1">Activo</span>
+          <span style="background-color: red" v-else>Inactivo</span>
         </q-td>
       </template>
       <template v-slot:body-cell-opciones="props">
         <q-td :props="props" class="q-pa-sm">
-          <button @click="card = true ; articulo = props.row">📝</button>
-          <button v-if="props.row.estado == 1" >❌</button>
+          <button @click="card = true ; articulo= props.row">📝</button>
+          <button v-if="props.row.status == 1">❌</button>
           <button v-else>✅</button>
         </q-td>
       </template>
@@ -234,9 +234,10 @@ let columns = ref([
     sortable: true,
   },
   {
-    name: "categoria",
+    name: "status",
     align: "center",
     label: "Categoria",
+
     field: (row)=> row.categoria.nombre,
     sortable: true,
   },
@@ -245,12 +246,13 @@ let columns = ref([
     align: "center",
     label: "Estado",
     field: "estado",
+
     sortable: true,
   },
   {
     name: "opciones",
     align: "center",
-    label: "Opciones",
+    label: "Estado",
     sortable: true,
   },
 ]);
@@ -269,7 +271,6 @@ const dataArticulos = async () => {
     console.log("error al obtener articulos", error.message);
   }
 };
-
 
 
   const editarArticulo = async (id) => {
