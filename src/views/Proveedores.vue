@@ -35,7 +35,7 @@
           <button
             @click="
               card = true;
-              articulo = props.row;
+              proveedor= props.row;
             "
             class="icono"
           >
@@ -51,139 +51,96 @@
       </template>
     </q-table>
   </div>
+
   <q-dialog v-model="card">
     <q-card class="my-card">
       <div class="q-pa-md">
         <div class="q-gutter-y-md column" style="min-width: 400px">
-          <q-field
-            color="orange"
-            standout
-            bottom-slots
-            :model-value="text"
-            label="Nombre"
-            stack-label
-            counter
-            clearable
-          >
+
+
+          <q-field color="orange" standout bottom-slots :model-value="text" label="Nombre" stack-label counter
+            clearable>
             <template v-slot:prepend>
               <q-icon name="place" />
             </template>
             <template v-slot:control>
-              <div class="self-center full-width no-outline" tabindex="0">
-                {{ rows.nombre }}
-              </div>
+              <input class="self-center full-width no-outline" type="text" v-model="proveedor.nombre">
             </template>
             <template v-slot:append>
               <q-icon name="favorite" />
             </template>
-
             <template v-slot:hint> Field hint </template>
           </q-field>
 
-          <q-field
-            color="orange"
-            standout
-            bottom-slots
-            :model-value="text"
-            label="Identificacion"
-            stack-label
-            counter
-            clearable
-          >
+
+          <q-field color="orange" standout bottom-slots :model-value="text" label="Identificacion" stack-label counter
+            clearable>
             <template v-slot:prepend>
               <q-icon name="place" />
             </template>
             <template v-slot:control>
-              <div class="self-center full-width no-outline" tabindex="0">
-                {{ text }}
-              </div>
+              <input class="self-center full-width no-outline" type="text" v-model="proveedor.identificacion">
             </template>
             <template v-slot:append>
               <q-icon name="favorite" />
             </template>
-
             <template v-slot:hint> Field hint </template>
           </q-field>
 
-          <q-field
-            color="orange"
-            standout
-            bottom-slots
-            :model-value="text"
-            label="Direccion"
-            stack-label
-            counter
-            clearable
-          >
+
+          <q-field color="orange" standout bottom-slots :model-value="text" label="Direccion" stack-label counter
+            clearable>
             <template v-slot:prepend>
               <q-icon name="place" />
             </template>
             <template v-slot:control>
-              <div class="self-center full-width no-outline" tabindex="0">
-                {{ text }}
-              </div>
+              <input class="self-center full-width no-outline" type="text" v-model="proveedor.direccion">
             </template>
             <template v-slot:append>
               <q-icon name="favorite" />
             </template>
-
             <template v-slot:hint> Field hint </template>
           </q-field>
 
-          <q-field
-            color="orange"
-            standout
-            bottom-slots
-            :model-value="text"
-            label="Telefono"
-            stack-label
-            counter
-            clearable
-          >
+
+          <q-field color="orange" standout bottom-slots :model-value="text" label="Telefono" stack-label counter
+            clearable>
             <template v-slot:prepend>
               <q-icon name="place" />
             </template>
             <template v-slot:control>
-              <div class="self-center full-width no-outline" tabindex="0">
-                {{ text }}
-              </div>
+              <input class="self-center full-width no-outline" type="text" v-model="proveedor.telefono">
             </template>
             <template v-slot:append>
               <q-icon name="favorite" />
             </template>
-
             <template v-slot:hint> Field hint </template>
           </q-field>
 
-          <q-field
-            color="orange"
-            standout
-            bottom-slots
-            :model-value="text"
-            label="Estado"
-            stack-label
-            counter
-            clearable
-          >
+
+          <q-field color="orange" standout bottom-slots :model-value="text" label="Imagen" stack-label counter
+            clearable>
             <template v-slot:prepend>
               <q-icon name="place" />
             </template>
             <template v-slot:control>
-              <div class="self-center full-width no-outline" tabindex="0">
-                {{ text }}
-              </div>
+              <input class="self-center full-width no-outline" type="text" v-model="proveedor.imagen">
             </template>
             <template v-slot:append>
               <q-icon name="favorite" />
             </template>
-
             <template v-slot:hint> Field hint </template>
           </q-field>
+
         </div>
       </div>
 
       <q-card-actions align="right">
-        <q-btn v-close-popup flat color="primary" label="Reserve" />
+        <q-btn @click="editarProveedor(proveedor._id)" v-show="showBtn == false" v-close-popup flat color="primary"
+          label="Editar" />
+        <q-btn @click="agregarCliente()" v-show="showBtn == true" v-close-popup flat color="primary"
+          label="Agregar" />
+
         <q-btn v-close-popup flat color="primary" round icon="event" />
       </q-card-actions>
     </q-card>
@@ -192,12 +149,17 @@
 <script setup>
 import { onMounted, ref } from "vue";
 
-const card = ref(false);
-let text = ref("Field content");
 import { useStore } from "../store/useStore.js";
-import { getData } from "../services/apiClient.js";
+import { getData , putData } from "../services/apiClient.js";
 const mainStore = useStore();
 const rows = ref([]);
+const proveedor = ref({})
+
+
+//modal
+let text = ref("Field content")
+const showBtn = ref(false)
+const card = ref(false)
 
 let columns = ref([
   {
@@ -260,6 +222,30 @@ const dataProveedor = async () => {
     console.log("error al obtener los proveedores", error.message);
   }
 };
+
+
+
+const editarProveedor = async (id) => {
+  try {
+    const response = await putData("/terceros/tercero/" + id,
+      {
+        nombre: proveedor.value.nombre,
+        identificacion:proveedor.value.identificacion,
+        direccion:proveedor.value.direccion,
+        telefono:proveedor.value.telefono,
+        imagen:proveedor.value.imagen
+      })
+
+      if(response.tercero){
+        console.log("cliente editada");
+      }
+      else{
+        console.log("error en la operacion" + error.message);
+      }
+  } catch (error) {
+    console.log("error al intentar editar el cliente");
+  }
+}
 
 onMounted(() => {
   dataProveedor();
