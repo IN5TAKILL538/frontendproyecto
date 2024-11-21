@@ -1,18 +1,11 @@
 <template>
   <div>
-    <q-table
-      title="Datos usuarios"
-      :rows="rows"
-      :columns="columns"
-      row-key="name"
-    >
+    <q-btn @click="showBtn = true; card = true" icon="add">Agregar proveedor</q-btn>
+
+    <q-table title="Datos usuarios" :rows="rows" :columns="columns" row-key="name">
       <template v-slot:body-cell-imagen="props">
         <q-td :props="props" class="q-pa-sm">
-          <img
-            :src="props.row.imagen"
-            alt=""
-            style="height: 50px; width: 50px"
-          />
+          <img :src="props.row.imagen" alt="" style="height: 50px; width: 50px" />
         </q-td>
       </template>
       <template v-slot:body-cell-fecha="props">
@@ -22,23 +15,18 @@
       </template>
       <template v-slot:body-cell-estado="props">
         <q-td :props="props" class="q-pa-sm">
-          <span style="background-color: green" v-if="props.row.estado == 1"
-            ><button class="activo">✅Activo✅</button></span
-          >
-          <span style="background-color: red" v-else
-            ><button class="inactivo">❌Inactivo❌</button>
+          <span style="background-color: green" v-if="props.row.estado == 1"><button
+              class="activo">✅Activo✅</button></span>
+          <span style="background-color: red" v-else><button class="inactivo">❌Inactivo❌</button>
           </span>
         </q-td>
       </template>
       <template v-slot:body-cell-opciones="props">
         <q-td :props="props" class="q-pa-sm">
-          <button
-            @click="
-              card = true;
-              proveedor= props.row;
-            "
-            class="icono"
-          >
+          <button @click="
+            card = true;
+          proveedor = props.row;
+          " class="icono">
             <img src="../assets/agregar2.gif" alt="" />
           </button>
           <button v-if="props.row.estado == 1" class="icono">
@@ -138,7 +126,7 @@
       <q-card-actions align="right">
         <q-btn @click="editarProveedor(proveedor._id)" v-show="showBtn == false" v-close-popup flat color="primary"
           label="Editar" />
-        <q-btn @click="agregarCliente()" v-show="showBtn == true" v-close-popup flat color="primary"
+        <q-btn @click="agregarProveedor()" v-show="showBtn == true" v-close-popup flat color="primary"
           label="Agregar" />
 
         <q-btn v-close-popup flat color="primary" round icon="event" />
@@ -150,7 +138,7 @@
 import { onMounted, ref } from "vue";
 
 import { useStore } from "../store/useStore.js";
-import { getData , putData } from "../services/apiClient.js";
+import { getData, putData, postData } from "../services/apiClient.js";
 const mainStore = useStore();
 const rows = ref([]);
 const proveedor = ref({})
@@ -230,20 +218,45 @@ const editarProveedor = async (id) => {
     const response = await putData("/terceros/tercero/" + id,
       {
         nombre: proveedor.value.nombre,
-        identificacion:proveedor.value.identificacion,
-        direccion:proveedor.value.direccion,
-        telefono:proveedor.value.telefono,
-        imagen:proveedor.value.imagen
+        identificacion: proveedor.value.identificacion,
+        direccion: proveedor.value.direccion,
+        telefono: proveedor.value.telefono,
+        imagen: proveedor.value.imagen
       })
 
-      if(response.tercero){
-        console.log("cliente editada");
-      }
-      else{
-        console.log("error en la operacion" + error.message);
-      }
+    if (response.tercero) {
+      console.log("cliente editada");
+    }
+    else {
+      console.log("error en la operacion" + error.message);
+    }
   } catch (error) {
     console.log("error al intentar editar el cliente");
+  }
+}
+
+const agregarProveedor = async () => {
+  try {
+    const response = await postData("/terceros",
+      {
+        nombre: proveedor.value.nombre,
+        identificacion: proveedor.value.identificacion,
+        direccion: proveedor.value.direccion,
+        telefono: proveedor.value.telefono,
+        imagen: proveedor.value.imagen,
+        tipo: 2
+      });
+
+    if (response.tercero) {
+      console.log("se agrego el cliente correctamente");
+      showBtn.value = false
+      dataProveedor()
+    }
+    else {
+      console.log("error en la respuesta" + error.message);
+    }
+  } catch (error) {
+    console.log("error al agregar el cliente");
   }
 }
 
@@ -252,16 +265,15 @@ onMounted(() => {
 });
 </script>
 <style scoped>
-
-.activo{
+.activo {
   background-color: greenyellow;
   border: 1px;
-  
-}
-.inactivo{
-  background-color: rgb(241, 122, 128);
-   border: 1px;
- 
+
 }
 
+.inactivo {
+  background-color: rgb(241, 122, 128);
+  border: 1px;
+
+}
 </style>
