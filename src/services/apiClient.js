@@ -18,8 +18,8 @@ export async function postData(url, data) {
         console.log(data)
         const response = await apiClient.post(url, data);
         return response.data;
-    } catch (error) {
-        console.error('erro en la peticion POST', error);
+    } catch (error){
+        console.error('Error en la peticion POST', error);
         throw error;
     }
 }
