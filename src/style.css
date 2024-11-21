@@ -1,4 +1,12 @@
 
+body{
+  background-color: #023e8a;
+}
+
+#app{
+  margin-top: 130px;
+}
+
 #app > div > header{
   background-color: #023e8a !important;
 }
@@ -23,6 +31,3 @@
 }
 
 
-#app{
-  margin: 130px;
-}
