@@ -136,7 +136,7 @@
               <q-icon name="place" />
             </template>
             <template v-slot:control>
-              <input class="self-center full-width no-outline" type="text" v-model="articulo.categoria.nombre" >
+              <input  class="self-center full-width no-outline" type="text" v-model="articulo.categoria.nombre" >
             </template>
             <template v-slot:append>
               
@@ -189,9 +189,14 @@ import { onMounted, ref } from "vue";
 import { useStore } from "../store/useStore.js";
 import { getData, postData, putData } from "../services/apiClient.js";
 const mainStore = useStore();
-const articulo = ref({});
+const articulo = ref({
+  nombre: "",
+    precio: "",
+    stock: "",
+    imagen: "",
+    categoria: { nombre: "" },
+    estado: 1});
 const showBtn = ref(false)
-const newArticulo = ref({})
 //modal
 const card = ref(false);
 let text = ref("Field content")
@@ -307,20 +312,21 @@ const dataArticulos = async () => {
           precio: articulo.value.precio,
           stock: articulo.value.stock,
           imagen: articulo.value.imagen,
-          categoria: articulo.value.categoria,
+          categoria: articulo.value.categoria.nombre,
           estado: articulo.value.estado
         })
 
         if(response.articulos){
           console.log("articulo agregado" + articulo.value);
-          getData()
+          dataArticulos()
         }
         else{
-          console.log("error al agregar el articulo" , error.message);
+          console.log("error al agregar el articulo");
         }
 
     } catch (error) {
       console.log("error al realizar la operacion");
+      console.log(articulo.value.nombre);
     }
   }
 
