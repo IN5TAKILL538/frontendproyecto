@@ -2,7 +2,7 @@
   <q-layout view="hHh LpR fFf">
     <q-header elevated class="bg-primary text-white" height-hint="98">
       <q-toolbar id="cabeza" >
-        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" id="menuClases" align="left"/>
+        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" id="menuClases" align="left" />
 
         <q-toolbar-title> INVENTARIO </q-toolbar-title>
 
@@ -41,26 +41,89 @@
         </div>
       </q-toolbar>
 
-      <q-tabs>
-        
-        <q-route-tab to="/articulos" label="ARTICULOS" />
-         <q-route-tab to="/categorias" label=" CATEGORIAS" />
-        <q-route-tab to="/clientes" label="CLIENTES" />
-        <q-route-tab to="/proveedores" label="PROVEEDORES" />
-        <q-route-tab to="/salidas" label="SALIDAS" />
-        <q-route-tab to="/entradas" label="ENTRADAS" />
-        <q-route-tab to="/deventradas" label="DEVOLUCIONESENTRADAS" />
-        <q-route-tab to="/devsalidas" label="DEVOLUCIONESSALIDAS" />
-
-        </q-tabs>
+      
     </q-header>
 
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered id="filtro">
       <p class="textcenter">FILTROS</p>
       
-          
+          <q-btn color="deep-orange" push to="/articulos" class="menuOpciones" @click="leftDrawerOpen = false">
+      <div class="row items-center no-wrap">
+       
+        <div class="text-center">
+          ARTICULOS
+        </div>
+      </div>
+    </q-btn>
+
+        <q-btn color="deep-orange" push to="/categorias" class="menuOpciones" @click="leftDrawerOpen = false">
+      <div class="row items-center no-wrap">
+       
+        <div class="text-center">
+          CATEGORIAS
+        </div>
+      </div>
+    </q-btn>
+
+        <q-btn color="deep-orange" push to="/clientes" class="menuOpciones" @click="leftDrawerOpen = false">
+      <div class="row items-center no-wrap">
+        
+        <div class="text-center">
+         CLIENTES
+        </div>
+      </div>
+    </q-btn>
+
+        <q-btn color="deep-orange" push to="/proveedores" class="menuOpciones" @click="leftDrawerOpen = false">
+      <div class="row items-center no-wrap">
+        
+        <div class="text-center">
+          PROVEEDORES
+        </div>
+      </div>
+    </q-btn>
+
+        <q-btn color="deep-orange" push to="/salidas" class="menuOpciones" @click="leftDrawerOpen = false"> 
+      <div class="row items-center no-wrap">
+       
+        <div class="text-center">
+          SALIDAS
+        </div>
+      </div>
+    </q-btn>
+
+
+          <q-btn color="deep-orange" push to="/entradas" class="menuOpciones" @click="leftDrawerOpen = false">
+      <div class="row items-center no-wrap">
+        
+        <div class="text-center">
+          ENTRADAS
+        </div>
+      </div>
+    </q-btn>
+
+        <q-btn color="deep-orange" push to="/deventradas" class="menuOpciones" @click="leftDrawerOpen = false">
+      <div class="row items-center no-wrap">
+        
+        <div class="text-center">
+          DEVOLUCIONES ENTRADAS
+        </div>
+      </div>
+    </q-btn>
+
+        <q-btn color="deep-orange" push to="/devsalidas" class="menuOpciones" @click="leftDrawerOpen = false">
+      <div class="row items-center no-wrap">
+        
+        <div class="text-center">
+          DEVOLUCIONES SALIDAS
+        </div>
+      </div>
+    </q-btn>    
     </q-drawer>
 
+
+
+        
  
     <q-drawer show-if-above v-model="rightDrawerOpen" side="right">
     </q-drawer>
@@ -127,10 +190,12 @@ export default {
   display: flex;
   flex-wrap: wrap;
   
-  
-
 }
 
+.menuOpciones{
+  width: 250px;
+  background-color: blue;
+}
 </style>
 
 <style>

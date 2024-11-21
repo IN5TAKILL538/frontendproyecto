@@ -22,8 +22,12 @@
       </template>
       <template v-slot:body-cell-estado="props">
         <q-td :props="props" class="q-pa-sm">
-          <span style="background-color: green;" v-if="props.row.estado==1"><button class="activo">✅Activo✅</button></span>
-          <span style="background-color: red;" v-else><button class="inactivo">❌Inactivo❌</button> </span>
+         <span style="background-color: green" v-if="props.row.estado == 1"
+            ><button class="activo">✅Activo✅</button></span
+          >
+          <span style="background-color: red" v-else
+            ><button class="inactivo">❌Inactivo❌</button>
+          </span>
 
         </q-td>
       </template>
@@ -124,4 +128,17 @@ onMounted(() => {
   dataClientes();
 });
 </script>
+<style scoped>
 
+.activo{
+  background-color: greenyellow;
+ border: 1px;;
+  
+}
+.inactivo{
+  background-color: rgb(241, 122, 128);
+   border: 1px;
+  
+}
+
+</style>
