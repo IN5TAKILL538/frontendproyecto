@@ -251,3 +251,17 @@ onMounted(() => {
   dataProveedor();
 });
 </script>
+<style scoped>
+
+.activo{
+  background-color: greenyellow;
+  border: 1px;
+  
+}
+.inactivo{
+  background-color: rgb(241, 122, 128);
+   border: 1px;
+ 
+}
+
+</style>
