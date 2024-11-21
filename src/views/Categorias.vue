@@ -1,5 +1,8 @@
 <template>
   <div>
+    <q-btn @click="showBtn = true ; card = true" icon="add">Agregar Categoria</q-btn>
+
+
     <q-table title="CATEGORIAS" :rows="rows" :columns="columns" row-key="name">
       <template v-slot:body-cell-status="props">
         <q-td :props="props" class="q-pa-sm">
@@ -9,7 +12,7 @@
       </template>
       <template v-slot:body-cell-opciones="props">
         <q-td :props="props" class="q-pa-sm">
-                   <button @click="card = true ; articulo = props.row" class="icono"><img src="../assets/agregar2.gif" alt="" > </button>
+          <button @click="card = true ; categoria = props.row" class="icono"><img src="../assets/agregar2.gif" alt="editar" > </button>
           <button v-if="props.row.estado == 1" class="icono"><img src="../assets/inactivar2.gif" alt="" ></button>
           <button v-else class="icono"><img src="../assets/verificado.gif" alt="" ></button>
         </q-td>
@@ -72,7 +75,9 @@
       </div>
 
       <q-card-actions align="right">
-        <q-btn @click="editarCategoria(categoria._id)" v-close-popup flat color="primary" label="Reserve" />
+        <q-btn @click="editarCategoria(categoria._id)"  v-show="showBtn == false"   v-close-popup flat color="primary" label="editar" />
+        <q-btn @click="agregarCategoria()" v-show="showBtn == true" v-close-popup flat color="primary" label="agregar" />
+
         <q-btn v-close-popup flat color="primary" round icon="event" />
       </q-card-actions>
     </q-card>
@@ -82,11 +87,12 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import { getData, putData } from "../services/apiClient.js";
+import { getData, postData, putData } from "../services/apiClient.js";
 
 //modal
 const card = ref(false);
 let text = ref("Field content")
+const showBtn =ref(false)
 
 //fin modal
 
@@ -159,6 +165,27 @@ const editarCategoria = async (id) => {
   }
 }
 
+
+const agregarCategoria= async()=>{
+  try {
+    const response = await postData("/categorias",
+      {
+        nombre:categoria.value.nombre,
+        descripcion:categoria.value.descripcion,
+        estado:categoria.value.estado
+      });
+
+      if(response.categoria){
+        console.log("se agrego la categoria correctamente");
+      }
+      else{
+        console.log("error en la respuesta" + error.message);
+      }
+  } catch (error) {
+    console.log("error al agregar la categoria");
+    console.log(categoria.value.estado);
+  }
+}
 
 
 onMounted(() => {
