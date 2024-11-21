@@ -1,13 +1,10 @@
-
 <template>
   <div>
-    <q-table
-      title="Datos usuarios"
+    <q-btn @click="showBtn = true ; card = true" icon="add">Agregar Categoria</q-btn>
 
-      :rows="rows"
-      :columns="columns"
-      row-key="name"
-    >
+
+
+    <q-table title="Datos usuarios" :rows="rows" :columns="columns" row-key="name">
       <template v-slot:body-cell-imagen="props">
         <q-td :props="props" class="q-pa-sm">
           <img :src="props.row.imagen" alt="" style="height: 50px; width: 50px;">
@@ -22,7 +19,8 @@
       </template>
       <template v-slot:body-cell-estado="props">
         <q-td :props="props" class="q-pa-sm">
-          <span style="background-color: green;" v-if="props.row.estado==1"><button class="activo">✅Activo✅</button></span>
+          <span style="background-color: green;" v-if="props.row.estado == 1"><button
+              class="activo">✅Activo✅</button></span>
           <span style="background-color: red;" v-else><button class="inactivo">❌Inactivo❌</button> </span>
 
         </q-td>
@@ -30,25 +28,129 @@
       <template v-slot:body-cell-opciones="props">
         <q-td :props="props" class="q-pa-sm">
 
-                  <button @click="card = true ; articulo = props.row" class="icono"><img src="../assets/agregar2.gif" alt="" > </button>
-          <button v-if="props.row.estado == 1" class="icono"><img src="../assets/inactivar2.gif" alt="" ></button>
-          <button v-else class="icono"><img src="../assets/verificado.gif" alt="" ></button>
+          <button @click="card = true; cliente=props.row" class="icono"><img src="../assets/agregar2.gif"
+              alt=""></button>
+          <button v-if="props.row.estado == 1" class="icono"><img src="../assets/inactivar2.gif" alt="editar"></button>
+          <button v-else class="icono"><img src="../assets/verificado.gif" alt=""></button>
 
         </q-td>
       </template>
     </q-table>
   </div>
+
+
+  <!--modal-->
+
+  <q-dialog v-model="card">
+    <q-card class="my-card">
+      <div class="q-pa-md">
+        <div class="q-gutter-y-md column" style="min-width: 400px">
+
+
+          <q-field color="orange" standout bottom-slots :model-value="text" label="Nombre" stack-label counter
+            clearable>
+            <template v-slot:prepend>
+              <q-icon name="place" />
+            </template>
+            <template v-slot:control>
+              <input class="self-center full-width no-outline" type="text" v-model="cliente.nombre">
+            </template>
+            <template v-slot:append>
+              <q-icon name="favorite" />
+            </template>
+            <template v-slot:hint> Field hint </template>
+          </q-field>
+
+
+          <q-field color="orange" standout bottom-slots :model-value="text" label="Identificacion" stack-label counter
+            clearable>
+            <template v-slot:prepend>
+              <q-icon name="place" />
+            </template>
+            <template v-slot:control>
+              <input class="self-center full-width no-outline" type="text" v-model="cliente.identificacion">
+            </template>
+            <template v-slot:append>
+              <q-icon name="favorite" />
+            </template>
+            <template v-slot:hint> Field hint </template>
+          </q-field>
+
+
+          <q-field color="orange" standout bottom-slots :model-value="text" label="Direccion" stack-label counter
+            clearable>
+            <template v-slot:prepend>
+              <q-icon name="place" />
+            </template>
+            <template v-slot:control>
+              <input class="self-center full-width no-outline" type="text" v-model="cliente.direccion">
+            </template>
+            <template v-slot:append>
+              <q-icon name="favorite" />
+            </template>
+            <template v-slot:hint> Field hint </template>
+          </q-field>
+
+
+          <q-field color="orange" standout bottom-slots :model-value="text" label="Telefono" stack-label counter
+            clearable>
+            <template v-slot:prepend>
+              <q-icon name="place" />
+            </template>
+            <template v-slot:control>
+              <input class="self-center full-width no-outline" type="text" v-model="cliente.telefono">
+            </template>
+            <template v-slot:append>
+              <q-icon name="favorite" />
+            </template>
+            <template v-slot:hint> Field hint </template>
+          </q-field>
+
+
+          <q-field color="orange" standout bottom-slots :model-value="text" label="Imagen" stack-label counter
+            clearable>
+            <template v-slot:prepend>
+              <q-icon name="place" />
+            </template>
+            <template v-slot:control>
+              <input class="self-center full-width no-outline" type="text" v-model="cliente.imagen">
+            </template>
+            <template v-slot:append>
+              <q-icon name="favorite" />
+            </template>
+            <template v-slot:hint> Field hint </template>
+          </q-field>
+
+        </div>
+      </div>
+
+      <q-card-actions align="right">
+        <q-btn @click="editarCliente(cliente._id)" v-show="showBtn == false" v-close-popup flat color="primary"
+          label="Editar" />
+        <q-btn @click="agregarCliente()" v-show="showBtn == true" v-close-popup flat color="primary"
+          label="Agregar" />
+
+        <q-btn v-close-popup flat color="primary" round icon="event" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+
+
 </template>
 
 <script setup>
 import { onMounted, ref } from "vue";
 import { useStore } from "../store/useStore.js";
-import { getData } from "../services/apiClient.js";
+import { getData, putData, postData } from "../services/apiClient.js";
 const mainStore = useStore();
-const rows = ref([
+const rows = ref([])
+const cliente = ref({})
 
-    
-])
+
+//modal
+let text = ref("Field content")
+const showBtn = ref(false)
+const card = ref(false)
 
 
 
@@ -72,29 +174,29 @@ let columns = ref([
     align: "center",
     label: "Direccion",
     field: "direccion",
-    
+
   },
   {
     name: "telefono",
     align: "center",
     label: "Telefono",
     field: "telefono",
-    
+
   },
   {
     name: "estado",
     align: "center",
     label: "Estado",
     field: "estado",
-    
+
   },
-  
- 
+
+
   {
     name: "opciones",
     align: "center",
     label: "Opciones",
-    
+
   },
   {
     name: "imagen",
@@ -109,19 +211,68 @@ const dataClientes = async () => {
     const response = await getData("/terceros/tipos/cliente");
     if (response.clientes) {
       rows.value = response.clientes;
-      
-      console.log("clientes optenidos" );
+
+      console.log("clientes optenidos");
     } else {
       console.log("respuesta sin clientes", response);
     }
   } catch (error) {
-    
+
     console.log("error al obtener los clientes", error.message);
   }
 };
+
+
+const editarCliente = async (id) => {
+  try {
+    const response = await putData("/terceros/tercero/" + id,
+      {
+        nombre: cliente.value.nombre,
+        identificacion:cliente.value.identificacion,
+        direccion:cliente.value.direccion,
+        telefono:cliente.value.telefono,
+        imagen:cliente.value.imagen
+      })
+
+      if(response.tercero){
+        console.log("cliente editada");
+      }
+      else{
+        console.log("error en la operacion" + error.message);
+      }
+  } catch (error) {
+    console.log("error al intentar editar el cliente");
+  }
+}
+
+
+const agregarCliente= async()=>{
+  try {
+    const response = await postData("/terceros",
+      {
+        nombre: cliente.value.nombre,
+        identificacion:cliente.value.identificacion,
+        direccion:cliente.value.direccion,
+        telefono:cliente.value.telefono,
+        imagen:cliente.value.imagen,
+        tipo:1
+      });
+
+      if(response.tercero){
+        console.log("se agrego el cliente correctamente");
+        showBtn =false
+      }
+      else{
+        console.log("error en la respuesta" + error.message);
+      }
+  } catch (error) {
+    console.log("error al agregar el cliente");
+  }
+}
+
+
 
 onMounted(() => {
   dataClientes();
 });
 </script>
-
