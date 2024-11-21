@@ -125,10 +125,20 @@
 
         
  
-    <q-drawer show-if-above v-model="rightDrawerOpen" side="right">
-    </q-drawer>
+
     <router-view/>
+    
+
+
+    <!--de aqui pára abajo todo lo de inicio-->
+
+    <div class="home">
+      <h1>Bienvenido a tu inventario</h1>
+      <p>Tu herramienta confiable para una gestión eficiente y organizada. Simplifica tus procesos, ahorra tiempo y toma el control de tu administración.</p>
+    </div>
   </q-layout>
+
+
 </template>
 
 <script>
@@ -170,39 +180,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-.q-btn {
-  margin: 20px;
-}
-.textcenter {
-  margin: 20px;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
-  font-size: 20px;
-}
-.q-tabs__content.row{
-  justify-content: center;
-}
-.menuClases{
-  width: 33%;
-}
-#cabeza{
-  display: flex;
-  flex-wrap: wrap;
-  
-}
-
-.menuOpciones{
-  width: 250px;
-  background-color: blue;
-}
-</style>
-
-<style>
-
-
-/**esto esconde el modal de la izquierda */
-#app > div > div > div:nth-child(3) > aside{
-  display: none !important;
-}
-</style>
+<style src="../styles/home.css" scoped></style>
