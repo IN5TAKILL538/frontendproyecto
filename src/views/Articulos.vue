@@ -9,6 +9,7 @@
           <img :src="props.row.imagen" alt="" style="height: 50px; width: 50px" />
         </q-td>
       </template>
+      
       <template v-slot:body-cell-estado="props">
         <q-td :props="props" class="q-pa-sm">
           <span style="background-color: green" v-if="props.row.estado == 1"
@@ -225,6 +226,7 @@ let columns = ref([
     sortable: true,
   },
   {
+    name: "categoria",
     name: "categoria",
     align: "center",
     label: "Categoria",
