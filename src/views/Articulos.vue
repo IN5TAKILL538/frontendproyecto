@@ -3,7 +3,7 @@
 
 
   <div class="contenedorTabla">
-    <q-table title="ARTICULOS" :rows="rows" :columns="columns" row-key="name">
+    <q-table title="ARTICULOS" :rows="rows" :columns="columns" row-key="name" class="tabla" >
       <template v-slot:body-cell-avatar="props">
         <q-td :props="props" class="q-pa-sm">
           <img :src="props.row.imagen" alt="" style="height: 50px; width: 50px" />
@@ -22,18 +22,18 @@
       <template v-slot:body-cell-opciones="props">
         <q-td :props="props" class="q-pa-sm">
            <button @click="card = true ; articulo = props.row" class="icono"><img src="../assets/agregar2.gif" alt="" > </button>
-          <button v-if="props.row.estado == 1" class="icono"><img src="../assets/inactivar2.gif" alt="" ></button>
-          <button v-else class="icono"><img src="../assets/verificado.gif" alt="" ></button>
+          <button @click="editarestado()" v-if="props.row.estado == 1" class="icono"  ><img src="../assets/inactivar2.gif" alt="" ></button>
+          <button @click="editarestado()" v-else class="icono" ><img src="../assets/verificado.gif" alt="" ></button>
         </q-td>
       </template>
     </q-table>
   </div>
-  <q-dialog v-model="card">
+  <q-dialog v-model="card" >
     <q-card class="my-card">
       <div class="q-pa-md">
         <div class="q-gutter-y-md column" style="min-width: 400px">
-    
 
+          <!-- Nombre -->
           <q-field
             color="orange"
             standout
@@ -43,44 +43,38 @@
             stack-label
             counter
             clearable
+            :rules="[val => val && val.length > 0 || 'El nombre es requerido']"
           >
             <template v-slot:prepend>
               <q-icon name="place" />
             </template>
             <template v-slot:control>
-              <input class="self-center full-width no-outline" type="text" v-model="articulo.nombre" >
+              <input class="self-center full-width no-outline" type="text" v-model="articulo.nombre" />
             </template>
-            <template v-slot:append>
-             
-            </template>
-
-            <template v-slot:hint> Field hint </template>
           </q-field>
 
-                    <q-field
+          <!-- Precio -->
+          <q-field
             color="orange"
             standout
             bottom-slots
-            :model-value="text"
+            :model-value="number"
             label="Precio"
             stack-label
             counter
             clearable
+            :rules="[val => val && !isNaN(val) || 'El precio debe ser un número']"
           >
             <template v-slot:prepend>
               <q-icon name="place" />
             </template>
             <template v-slot:control>
-            <input class="self-center full-width no-outline" type="text" v-model="articulo.precio" >
+              <input class="self-center full-width no-outline" type="number" v-model="articulo.precio" />
             </template>
-            <template v-slot:append>
-              
-            </template>
-
-            <template v-slot:hint> Field hint </template>
           </q-field>
 
-                    <q-field
+          <!-- Stock -->
+          <q-field
             color="orange"
             standout
             bottom-slots
@@ -89,21 +83,18 @@
             stack-label
             counter
             clearable
+            :rules="[val =>  val > 0 || 'El stock debe ser un número mayor o igual a 0']"
           >
             <template v-slot:prepend>
               <q-icon name="place" />
             </template>
             <template v-slot:control>
-              <input class="self-center full-width no-outline" type="text" v-model="articulo.stock" >
+              <input class="self-center full-width no-outline" type="number" v-model="articulo.stock" />
             </template>
-            <template v-slot:append>
-              
-            </template>
-
-            <template v-slot:hint> Field hint </template>
           </q-field>
 
-                    <q-field
+          <!-- Imagen -->
+          <q-field
             color="orange"
             standout
             bottom-slots
@@ -112,21 +103,18 @@
             stack-label
             counter
             clearable
+            :rules="[val => !val || val.startsWith('http') || 'La URL de la imagen debe ser válida']"
           >
             <template v-slot:prepend>
               <q-icon name="place" />
             </template>
             <template v-slot:control>
-              <input class="self-center full-width no-outline" type="text" v-model="articulo.imagen" >
+              <input class="self-center full-width no-outline" type="text" v-model="articulo.imagen" />
             </template>
-            <template v-slot:append>
-              
-            </template>
-
-            <template v-slot:hint> Field hint </template>
           </q-field>
 
-                    <q-field
+          <!-- Categoria -->
+          <q-field
             color="orange"
             standout
             bottom-slots
@@ -135,21 +123,17 @@
             stack-label
             counter
             clearable
+            :rules="[val => val && val.length > 0 || 'La categoría es requerida']"
           >
             <template v-slot:prepend>
               <q-icon name="place" />
             </template>
             <template v-slot:control>
-              <input  class="self-center full-width no-outline" type="text" v-model="articulo.categoria.nombre" >
+              <input class="self-center full-width no-outline" type="text" v-model="articulo.categoria.nombre" />
             </template>
-            <template v-slot:append>
-              
-            </template>
-
-            <template v-slot:hint> Field hint </template>
           </q-field>
 
-
+          <!-- Estado -->
           <q-field
             color="orange"
             standout
@@ -159,27 +143,25 @@
             stack-label
             counter
             clearable
+            :rules="[val => val !== undefined || 'El estado es requerido']"
           >
             <template v-slot:prepend>
               <q-icon name="place" />
             </template>
             <template v-slot:control>
-              <input class="self-center full-width no-outline" type="text" v-model="articulo.estado" >
+              <select name="estado" id="estado" v-model="articulo.estado">
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+              </select>
             </template>
-            <template v-slot:append>
-              
-            </template>
-
-            <template v-slot:hint> Field hint </template>
           </q-field>
 
-          
         </div>
       </div>
 
-      <q-card-actions align="right">  
+      <q-card-actions align="right">
         <q-btn v-show="showBtn == false" @click="editarArticulo(articulo._id)" v-close-popup flat color="primary" label="Reserve" />
-        <q-btn v-show="showBtn == true"   @click="agregarArticulo()" v-close-popup flat color="primary" label="agregar" ></q-btn>
+        <q-btn v-show="showBtn == true" @click="agregarArticulo()" v-close-popup flat color="primary" label="agregar" />
         <q-btn v-close-popup flat color="primary" round icon="event" />
       </q-card-actions>
     </q-card>
@@ -195,8 +177,8 @@ import { getData, postData, putData } from "../services/apiClient.js";
 const mainStore = useStore();
 const articulo = ref({
   nombre: "",
-    precio: "",
-    stock: "",
+    precio: 0,
+    stock: 0,
     imagen: "",
     categoria: { nombre: "" },
     estado: 1});
@@ -266,7 +248,19 @@ let columns = ref([
   },
 ]);
 
+function editarestado(){
+  if(response.estado==0 && articulo.value.estado==0){
+    response.estado = 1
+    articulo.value.estado = 1
+  }
+  else{
+    estado = 0
+    articulo.value.estado = 0
+  }
+}
+
 const dataArticulos = async () => {
+  document.getElementById("home").style.display="none"
   try {
     const response = await getData("/articulos/articulos")
     if (response.articulos) {
@@ -274,6 +268,7 @@ const dataArticulos = async () => {
       console.log("articulos recibidos" + response);
     }
     else {
+      
       console.log("respuesta sin articulos", response);
     }
   } catch (error) {
@@ -295,6 +290,7 @@ const dataArticulos = async () => {
           categoria: articulo.value.categoria,
           estado: articulo.value.estado
         })  
+        
 
       if (response.articulo) {
         console.log("articulo editado" + response.articulo);
@@ -343,13 +339,19 @@ const dataArticulos = async () => {
 <style scoped>
 
 .activo{
-  background-color: greenyellow;
+  background-color: rgb(4, 151, 53);
  border: 1px;
 }
 .inactivo{
   background-color: rgb(241, 122, 128);
    border: 1px;
   
+}
+.tabla{
+  background-color: var(--q-primary);
+}
+.home{
+  display: none;
 }
 
 </style>

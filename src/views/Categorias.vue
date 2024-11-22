@@ -3,7 +3,7 @@
     <q-btn @click="showBtn = true ; card = true" icon="add">Agregar Categoria</q-btn>
 
 
-    <q-table title="CATEGORIAS" :rows="rows" :columns="columns" row-key="name">
+    <q-table title="CATEGORIAS" :rows="rows" :columns="columns" row-key="name" class="tabla">
       <template v-slot:body-cell-status="props">
         <q-td :props="props" class="q-pa-sm">
 <span style="background-color: green" v-if="props.row.estado == 1"
@@ -67,7 +67,10 @@
               <q-icon name="place" />
             </template>
             <template v-slot:control>
-              <input class="self-center full-width no-outline" type="text" v-model="categoria.estado">
+              <select name="estado" id="estado" v-model="categoria.estado">
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+              </select>
             </template>
             <template v-slot:append>
               <q-icon name="favorite" />
@@ -132,6 +135,7 @@ let columns = ref([
 ]);
 
 const dataCategorias = async () => {
+   document.getElementById("home").style.display="none"
   try {
     const response = await getData("/categorias/categorias")
     if (response.categorias) {
@@ -200,7 +204,7 @@ onMounted(() => {
 <style scoped>
 
 .activo{
-  background-color: greenyellow;
+  background-color: rgb(4, 151, 53);
 border: 1px;
   
 }
@@ -209,5 +213,10 @@ border: 1px;
    border: 1px;
 
 }
-
+.tabla{
+  background-color: var(--q-primary);
+}
+.home{
+  display: none;
+}
 </style>
