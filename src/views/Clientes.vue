@@ -4,7 +4,7 @@
 
 
 
-    <q-table title="Datos usuarios" :rows="rows" :columns="columns" row-key="name">
+    <q-table title="Clientes" :rows="rows" :columns="columns" row-key="name" class="tabla">
       <template v-slot:body-cell-imagen="props">
         <q-td :props="props" class="q-pa-sm">
           <img :src="props.row.imagen" alt="" style="height: 50px; width: 50px;">
@@ -229,6 +229,7 @@ const dataClientes = async () => {
 
 
 const editarCliente = async (id) => {
+   document.getElementById("home").style.display="none"
   try {
     const response = await putData("/terceros/tercero/" + id,
       {
@@ -265,7 +266,7 @@ const agregarCliente= async()=>{
 
       if(response.tercero){
         console.log("se agrego el cliente correctamente");
-        showBtn =false
+        showBtn.value =false
       }
       else{
         console.log("error en la respuesta" + error.message);
@@ -285,7 +286,7 @@ onMounted(() => {
 <style scoped>
 
 .activo{
-  background-color: greenyellow;
+  background-color: rgb(4, 151, 53);
  border: 1px;;
   
 }
@@ -293,6 +294,12 @@ onMounted(() => {
   background-color: rgb(241, 122, 128);
    border: 1px;
   
+}
+.tabla{
+  background-color: var(--q-primary);
+}
+.home{
+  display: none;
 }
 
 </style>

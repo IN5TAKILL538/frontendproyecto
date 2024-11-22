@@ -132,9 +132,10 @@
 
     <!--de aqui pára abajo todo lo de inicio-->
 
-    <div class="home">
-      <h1>Bienvenido a tu inventario</h1>
-      <p>Tu herramienta confiable para una gestión eficiente y organizada. Simplifica tus procesos, ahorra tiempo y toma el control de tu administración.</p>
+    
+    <div class="home" v-show="true" id="home">
+      <h2 class="textoplano">Bienvenido a tu inventario</h2>
+      <p class="textoplano">Tu herramienta confiable para una gestión eficiente y organizada. Simplifica tus procesos, ahorra tiempo y toma el control de tu administración.</p>
     </div>
   </q-layout>
 
@@ -179,5 +180,30 @@ export default {
     };
   },
 };
+function mostrar (){
+
+}
+
 </script>
-<style src="../styles/home.css" scoped></style>
+<style scoped>
+.menuOpciones{
+  width: 250px;
+  margin: 12px;
+  padding: 2px;
+}
+.home{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+ 
+}
+.textoplano{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  text-align: center;
+}
+</style>

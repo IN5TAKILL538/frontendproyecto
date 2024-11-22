@@ -23,6 +23,8 @@ export const useStore = defineStore("store",()=>{
         setToken,
         getToken
     }
+
+
 },
 {
     persist:true

@@ -1,5 +1,5 @@
-import Login from '../views/Login.vue'
-import Home from '../views/Home.vue'
+import Login from '../views/login.vue'
+import Home from '../views/home.vue'
 import Articulos from '../views/Articulos.vue'
 import Clientes from '../views/Clientes.vue'
 import Entradas from '../views/Entradas.vue'
@@ -16,6 +16,10 @@ const routes =[
     {path:"/home", component:Home, children:[
         {path:"/articulos", component:Articulos},
         {path:"/clientes", component:Clientes},
+        {path:"/entradas", component:Entradas},
+        {path:"/salidas", component:Salidas},
+        {path:"/deventradas", component:DevEntradas},
+        {path:"/devsalidas", component:DevSalidas},
         {path:"/entradas", component:Entradas},
         {path:"/salidas", component:Salidas},
         {path:"/deventradas", component:DevEntradas},

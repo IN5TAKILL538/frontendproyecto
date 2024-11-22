@@ -2,7 +2,7 @@
   <div>
     <q-btn @click="showBtn = true; card = true" icon="add">Agregar proveedor</q-btn>
 
-    <q-table title="Datos usuarios" :rows="rows" :columns="columns" row-key="name">
+    <q-table title="Proveedores" :rows="rows" :columns="columns" row-key="name" class="tabla">
       <template v-slot:body-cell-imagen="props">
         <q-td :props="props" class="q-pa-sm">
           <img :src="props.row.imagen" alt="" style="height: 50px; width: 50px" />
@@ -197,6 +197,7 @@ let columns = ref([
 ]);
 
 const dataProveedor = async () => {
+   document.getElementById("home").style.display="none"
   try {
     const response = await getData("/terceros/tipos/proveedor");
     if (response.proveedores) {
@@ -266,7 +267,7 @@ onMounted(() => {
 </script>
 <style scoped>
 .activo {
-  background-color: greenyellow;
+  background-color: rgb(4, 151, 53);
   border: 1px;
 
 }
@@ -275,5 +276,11 @@ onMounted(() => {
   background-color: rgb(241, 122, 128);
   border: 1px;
 
+}
+.tabla{
+  background-color: var(--q-primary);
+}
+.home{
+  display: none;
 }
 </style>
