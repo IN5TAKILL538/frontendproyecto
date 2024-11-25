@@ -26,6 +26,7 @@
           <button @click="
             card = true;
           proveedor = props.row;
+          showBtn = false
           " class="icono">
             <img src="../assets/agregar2.gif" alt="" />
           </button>
@@ -227,6 +228,7 @@ const editarProveedor = async (id) => {
 
     if (response.tercero) {
       console.log("cliente editada");
+      Reset()
     }
     else {
       console.log("error en la operacion" + error.message);
@@ -235,6 +237,8 @@ const editarProveedor = async (id) => {
     console.log("error al intentar editar el cliente");
   }
 }
+
+
 
 const agregarProveedor = async () => {
   try {
@@ -258,6 +262,16 @@ const agregarProveedor = async () => {
     }
   } catch (error) {
     console.log("error al agregar el cliente");
+  }
+}
+
+function Reset (){
+  proveedor.value ={
+    nombre:"",
+    identificacion:"",
+    direccion:"",
+    telefono:"",
+    imagen:""
   }
 }
 

@@ -23,6 +23,7 @@
     </template>
 <script setup>
 import { ref } from 'vue'
+import Swal from 'sweetalert2';
 import { postData } from '../services/apiClient.js';
 import { useRouter } from 'vue-router';
 import { useStore } from '../store/useStore.js';
@@ -44,13 +45,12 @@ const iniciarSesion = async ()=>{
             console.log("respuesta sin token", response);
         }
     } catch (error) {
-        if(error.response &&error.response.data.error === "contraseña incorrecta" ){
-            passwordError.value = "la contraseña es incorrecta"
-        }
-        else{
-            console.log("Error al iniciar sesion", error.response?.data?.error || error.message);
-            passwordError.value=""
-        }
+      if(error.response.data.msg == "usuario / contraseña incorrecta"){
+        Swal.fire("Contraseña incorrecta");
+      }
+      else if(error.response.data.msg == "usuario / email incorrecto"){
+        Swal.fire("email incorrecto");
+      }
     }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-btn @click="showBtn = true ; card = true" icon="add">Agregar Categoria</q-btn>
+    <q-btn @click="showBtn = true ; card = true" icon="add">Agregar Cliente</q-btn>
 
 
 
@@ -33,7 +33,7 @@
       <template v-slot:body-cell-opciones="props">
         <q-td :props="props" class="q-pa-sm">
 
-          <button @click="card = true; cliente=props.row" class="icono"><img src="../assets/agregar2.gif"
+          <button @click="card = true; cliente=props.row ; showBtn = false" class="icono"><img src="../assets/agregar2.gif"
               alt=""></button>
           <button v-if="props.row.estado == 1" class="icono"><img src="../assets/inactivar2.gif" alt="editar"></button>
           <button v-else class="icono"><img src="../assets/verificado.gif" alt=""></button>
@@ -242,6 +242,8 @@ const editarCliente = async (id) => {
 
       if(response.tercero){
         console.log("cliente editada");
+        dataClientes()
+        Reset()
       }
       else{
         console.log("error en la operacion" + error.message);
@@ -250,6 +252,7 @@ const editarCliente = async (id) => {
     console.log("error al intentar editar el cliente");
   }
 }
+
 
 
 const agregarCliente= async()=>{
@@ -266,7 +269,7 @@ const agregarCliente= async()=>{
 
       if(response.tercero){
         console.log("se agrego el cliente correctamente");
-        showBtn.value =false
+        dataClientes()
       }
       else{
         console.log("error en la respuesta" + error.message);
@@ -276,7 +279,15 @@ const agregarCliente= async()=>{
   }
 }
 
-
+function Reset (){
+  cliente.value ={
+    nombre:"",
+    identificacion:"",
+    direccion:"",
+    telefono:"",
+    imagen:""
+  }
+}
 
 onMounted(() => {
   dataClientes();

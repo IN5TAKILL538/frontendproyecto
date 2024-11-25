@@ -16,7 +16,7 @@
       </template>
       <template v-slot:body-cell-opciones="props">
         <q-td :props="props" class="q-pa-sm">
-          <button @click="card = true ; categoria = props.row" class="icono"><img src="../assets/agregar2.gif" alt="editar" > </button>
+          <button @click="card = true ; categoria = props.row ; showBtn = false" class="icono"><img src="../assets/agregar2.gif" alt="editar" > </button>
           <button v-if="props.row.estado == 1" class="icono"><img src="../assets/inactivar2.gif" alt="" ></button>
           <button v-else class="icono"><img src="../assets/verificado.gif" alt="" ></button>
         </q-td>
@@ -164,6 +164,7 @@ const editarCategoria = async (id) => {
 
       if(response.categoria){
         console.log("categoria editada");
+        Reset()
       }
       else{
         console.log("error en la operacion" + error.message);
@@ -185,6 +186,7 @@ const agregarCategoria= async()=>{
 
       if(response.categoria){
         console.log("se agrego la categoria correctamente");
+        dataCategorias()
       }
       else{
         console.log("error en la respuesta" + error.message);
@@ -192,6 +194,13 @@ const agregarCategoria= async()=>{
   } catch (error) {
     console.log("error al agregar la categoria");
     console.log(categoria.value.estado);
+  }
+}
+
+function Reset (){
+  categoria.value={
+    nombre:"",
+    descripcion:"",
   }
 }
 

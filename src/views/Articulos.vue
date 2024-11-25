@@ -22,7 +22,7 @@
       </template>
       <template v-slot:body-cell-opciones="props">
         <q-td :props="props" class="q-pa-sm">
-           <button @click="card = true ; articulo = props.row" class="icono"><img src="../assets/agregar2.gif" alt="" > </button>
+           <button @click="card = true ; articulo = props.row ; showBtn = false" class="icono"><img src="../assets/agregar2.gif" alt="" > </button>
           <button @click="editarestado()" v-if="props.row.estado == 1" class="icono"  ><img src="../assets/inactivar2.gif" alt="" ></button>
           <button @click="editarestado()" v-else class="icono" ><img src="../assets/verificado.gif" alt="" ></button>
         </q-td>
@@ -63,9 +63,7 @@
             label="Precio"
             stack-label
             counter
-            clearable
-            :rules="[val => val && !isNaN(val) || 'El precio debe ser un número']"
-          >
+            clearable>
             <template v-slot:prepend>
               <q-icon name="place" />
             </template>
@@ -130,7 +128,12 @@
               <q-icon name="place" />
             </template>
             <template v-slot:control>
-              <input class="self-center full-width no-outline" type="text" v-model="articulo.categoria.nombre" />
+              <select v-model="articulo.categoria.nombre"  name="categoria" id="categoria">
+                <option value="" disabled selected>Seleccionar</option>
+                <option v-for="categoria in categorias" :value="categoria._id" :key="categoria._id">
+                  {{ categoria.nombre }}
+                </option>
+        </select>
             </template>
           </q-field>
 
@@ -161,8 +164,8 @@
       </div>
 
       <q-card-actions align="right">
-        <q-btn v-show="showBtn == false" @click="editarArticulo(articulo._id)" v-close-popup flat color="primary" label="Reserve" />
-        <q-btn v-show="showBtn == true" @click="agregarArticulo()" v-close-popup flat color="primary" label="agregar" />
+        <q-btn v-show="showBtn == false" @click="editarArticulo(articulo._id)" v-close-popup flat color="primary" label="Editar" />
+        <q-btn v-show="showBtn == true" @click="agregarArticulo() ; showBtn = false" v-close-popup flat color="primary" label="agregar" />
         <q-btn v-close-popup flat color="primary" round icon="event" />
       </q-card-actions>
     </q-card>
@@ -183,6 +186,7 @@ const articulo = ref({
     imagen: "",
     categoria: { nombre: "" },
     estado: 1});
+    const categorias = ref({})
 const showBtn = ref(false)
 //modal
 const card = ref(false);
@@ -227,10 +231,8 @@ let columns = ref([
   },
   {
     name: "categoria",
-    name: "categoria",
     align: "center",
     label: "Categoria",
-
     field: (row)=> row.categoria.nombre,
     sortable: true,
   },
@@ -267,6 +269,7 @@ const dataArticulos = async () => {
     const response = await getData("/articulos/articulos")
     if (response.articulos) {
       rows.value = response.articulos
+      rows.value.reverse()
       console.log("articulos recibidos" + response);
     }
     else {
@@ -289,19 +292,23 @@ const dataArticulos = async () => {
           precio: articulo.value.precio,
           stock: articulo.value.stock,
           imagen: articulo.value.imagen,
-          categoria: articulo.value.categoria,
+          categoria: articulo.value.categoria.nombre,
           estado: articulo.value.estado
         })  
         
 
       if (response.articulo) {
         console.log("articulo editado" + response.articulo);
+        dataArticulos()
+        Reset()
       }
       else {
         console.log("error al editar el articulo", error.message);
       }
     } catch (error) {
       console.log("error al intentat editar");
+      console.log(articulo.value.categoria.nombre);
+
     }
   }
 
@@ -321,6 +328,7 @@ const dataArticulos = async () => {
         if(response.articulos){
           console.log("articulo agregado" + articulo.value);
           dataArticulos()
+          Reset()
         }
         else{
           console.log("error al agregar el articulo");
@@ -332,8 +340,36 @@ const dataArticulos = async () => {
     }
   }
 
+
+  const getCategorias = async()=>{
+    try {
+      const response = await getData("/categorias/categorias")
+    if(response.categorias){
+      categorias.value = response.categorias
+    }
+    else{
+      console.log("error al traer los datos");
+    }
+    } catch (error) {
+      console.log("error al realizar la operacion");
+    }
+  }
+
+  function Reset() {
+  articulo.value = {
+    nombre: "",
+    precio: 0,
+    stock: 0,
+    imagen: "",
+    categoria: { nombre: "" },
+    estado: 1
+  };
+}
+
+
   onMounted(() => {
     dataArticulos()
+    getCategorias()
   })
 
 
