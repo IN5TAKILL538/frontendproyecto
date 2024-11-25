@@ -121,22 +121,16 @@
     </q-btn>    
     </q-drawer>
 
-
-
-        
- 
-
-    <router-view/>
-    
-
-
     <!--de aqui pára abajo todo lo de inicio-->
 
-    
+  
     <div class="home" v-show="true" id="home">
       <h2 class="textoplano">Bienvenido a tu inventario</h2>
       <p class="textoplano">Tu herramienta confiable para una gestión eficiente y organizada. Simplifica tus procesos, ahorra tiempo y toma el control de tu administración.</p>
     </div>
+
+    <router-view/>
+
   </q-layout>
 
 
