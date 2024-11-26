@@ -9,11 +9,11 @@ if(token){
 else{
     token= ""
 }
-
 const apiClient = axios.create({
-    baseURL: 'http://localhost:3999/api',
+  /*   baseURL: 'http://localhost:3999/api', */
+    baseURL:"https://inventario-bxf-2.onrender.com/api",
     headers: {
-        "x-token": token // Si no hay token, no se agrega el header
+        "x-token": token 
     }
 });
 
