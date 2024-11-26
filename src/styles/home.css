@@ -1,39 +1,68 @@
-
 .q-btn {
-
-    margin: 20px;
-  }
-  .textcenter {
-    margin: 20px;
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-      "Lucida Sans", Arial, sans-serif;
-    font-size: 20px;
-  }
-  .q-tabs__content.row{
-    justify-content: center;
-  }
-  .menuClases{
-    width: 33%;
-  }
-  #cabeza{
-    display: flex;
-    flex-wrap: wrap;
-    
-  }
-  
-  .menuOpciones{
-    width: 250px;
-    
-  }
-
-  
-  
-  /**esto esconde el modal de la izquierda */
-  #app > div > div > div:nth-child(3) > aside{
-    display: none !important;
-  }
+  margin: 20px;
+}
+.textcenter {
+  margin: 20px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 20px;
+}
+.q-tabs__content.row {
+  justify-content: center;
+}
+.menuClases {
+  width: 33%;
+}
+#cabeza {
+  display: flex;
+  flex-wrap: wrap;
+}
 
 
-  #app > div > div > div:nth-child(3) > aside > div{
-    display: none !important;
-  }
+
+
+
+
+
+.q-layout{
+  background-color: #eef4ed;
+}
+
+.containerInfo {
+  display: flex;
+  background-color: #dad7cd;
+  padding-top: 25px;
+  flex-direction: column;
+  margin: 0% !important;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 100%;
+}
+
+.containerInfo img {
+  width: 200px;
+  height: 130px;
+}
+
+.menuOpciones {
+  width: 250px;
+  margin: 12px;
+  background-color: #1976D2 !important;
+  font-weight: 500 ;
+  padding: 2px;
+}
+.home {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.textoplano {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  text-align: center;
+}
