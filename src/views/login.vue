@@ -13,9 +13,11 @@
             <!--boton password-->
             <input v-model="password" class="input" type="password" placeholder="password">
         
-            <button class="button" @click="iniciarSesion">
+           <!--  <button class="button" @click="iniciarSesion">
+                
             Iniciar Sesion
-            </button>
+            </button> -->
+            <q-btn :loading="loading" color="secondary" @click="iniciarSesion()" label="Iniciar sesion"  />
         </div>
     </div>
     
@@ -29,10 +31,11 @@ import { useRouter } from 'vue-router';
 import { useStore } from '../store/useStore.js';
 const email =ref("")
 const password = ref("")
-const passwordError = ref("")
 const router = useRouter()
 const useAuth = useStore()
+const loading = ref(false)
 const iniciarSesion = async ()=>{
+    loading.value=true
     try {
         const response = await postData("/usuarios/login", { email: email.value , contraseña:password.value})
         const token = response.token
@@ -51,6 +54,10 @@ const iniciarSesion = async ()=>{
       else if(error.response.data.msg == "usuario / email incorrecto"){
         Swal.fire("email incorrecto");
       }
+
+    }
+    finally{
+        loading.value=false
     }
 }
 </script>
