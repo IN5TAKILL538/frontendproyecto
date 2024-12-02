@@ -109,13 +109,13 @@
       
     const dataCategorias = async ()=>{
       try {
-        const response =  await getData("/movimientos/movimientos")
-        if(response.movimientos){
-          rows.value = response.movimientos
-          console.log("movimientos recivbidos" + response.value);
+        const response =  await getData("/movimientos/tipo/devolucionSalida")
+        if(response.devolucionesSalida){
+          rows.value = response.devolucionesSalida
+          console.log("Devoluciones salidas recibidas" , response.devolucionesSalida);
         }
       } catch (error) {
-        console.log("no llegaron los mocimientos" + error.message);
+        console.log("no llegaron las devoluciones salidas" + error.message);
       }
     }
 
