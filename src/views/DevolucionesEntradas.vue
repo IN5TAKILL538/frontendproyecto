@@ -114,13 +114,13 @@ let columns = ref([
 
 const dataCategorias = async () => {
   try {
-    const response = await getData("/movimientos/movimientos");
-    if (response.movimientos) {
-      rows.value = response.movimientos;
-      console.log("movimientos recivbidos" + response.value);
+    const response = await getData("/movimientos/tipo/devolucionEntrada");
+    if (response.devolucionesEntrada) {
+      rows.value = response.devolucionesEntrada;
+      console.log("Entradas recibidas" , response.devolucionesEntrada);
     }
   } catch (error) {
-    console.log("no llegaron los mocimientos" + error.message);
+    console.log("no llegaron las entradas" + error.message);
   }
 };
 

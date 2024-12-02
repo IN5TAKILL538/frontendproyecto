@@ -187,7 +187,8 @@ let columns = ref([
     name: "categoria",
     align: "center",
     label: "Categoria",
-    field: (row) => row.categoria.nombre,
+   /*  field: (row) => row.categoria.nombre, */
+    field: (row) => row.categoria?.nombre || "",
     sortable: true,
   },
   {
@@ -238,7 +239,7 @@ const dataArticulos = async () => {
 
 const editarArticulo = async (id) => {
   try {
-    console.log("aarucituclo", articulo.value);
+    console.log("articulo", articulo.value);
 
     const response = await putData("/articulos/articulo/" + id,
       {
