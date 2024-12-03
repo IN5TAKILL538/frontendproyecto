@@ -1,0 +1,79 @@
+
+
+q-portal--dialog--1 > div > div.q-dialog__inner.flex.no-pointer-events.q-dialog__inner--minimized.q-dialog__inner--standard.fixed-full.flex-center{
+    padding: 0px !important;
+}
+
+.q-dialog div{
+    max-width: 100% !important;
+}
+
+.top{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center ;
+    justify-content: space-between;
+}
+
+h1{
+    font-size:medium;
+    margin: 0%;
+    line-height: 2rem;
+}
+
+.top .q-btn{
+    align-self:flex-end;
+    width: 40px;
+    height: 40px;
+
+}
+
+
+.q-dialog div{
+    width: 100%;
+}
+
+
+.containerTop{
+    display: flex;
+    align-items: center;
+    margin: 0%;
+    justify-content: space-between;
+    gap:5px ;
+    padding: 10px;
+    border-bottom: 3px solid #1976D2;
+}
+
+.btnEditar{
+    border: 2px solid #1976D2;
+    border-radius: 5px;
+    padding: 3px;
+    width: 250px;
+    height: 60px;
+}
+
+.titleDiv{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1976D2;
+}
+
+.title{
+    padding: 15px;
+    font-size:xx-large;
+    color: white; 
+}
+
+.close{
+    margin: 1%;
+    background-color: white;
+    justify-self: end !important;
+    width: 25px;
+     height: 25px;
+}
+
+.q-pa-md{
+    padding: 0%;
+}
