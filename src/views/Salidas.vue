@@ -16,10 +16,12 @@
       <template v-slot:body-cell-Opciones="props">
         <q-td :props="props" class="q-pa-sm">
 
-          <button @click="card2 = true;
-          articulo = props.row;
-          rowsArticulos = props.row.articulos
-            " class="icono">
+          <button @click="
+          card2 = true;
+          salida= props.row;
+          rowsArticulos = props.row.articulos;
+          console.log(TotalEditar);"
+          class="icono">
             <img src="../assets/agregar2.gif" alt="" />
           </button>
 
@@ -34,8 +36,8 @@
 
       <template v-slot:body-cell-Articulos="props">
         <q-td :props="props" class="q-pa-sm">
-          <q-btn icon="visibility" @click="Showmodal = true;
-          rowsArticulos = props.row.articulos"></q-btn>
+          <q-btn icon="visibility" @click="Showmodal2 = true;
+          rowsArticulos = props.row.articulos ; console.log(rowsArticulos);"></q-btn>
         </q-td>
       </template>
     </q-table>
@@ -78,20 +80,6 @@
           </q-field>
 
 
-          <q-field color="orange" standout bottom-slots :model-value="text" label="Valor" stack-label counter clearable>
-            <template v-slot:prepend>
-              <q-icon name="place" />
-            </template>
-            <template v-slot:control>
-              <input class="self-center full-width no-outline" type="text" v-model="salida.valor">
-            </template>
-            <template v-slot:append>
-              <q-icon name="favorite" />
-            </template>
-            <template v-slot:hint> Field hint </template>
-          </q-field>
-
-
           <q-field color="orange" standout bottom-slots :model-value="text" label="Iva" stack-label counter clearable>
             <template v-slot:prepend>
               <q-icon name="place" />
@@ -106,12 +94,42 @@
           </q-field>
 
 
+            <!-- modal para agregar articulos a la hora de registrar una salida -->
+      <p>agrega tus articulos aqui abajo</p>
+
+<q-btn @click="Showmodal = true">Agregar Articulo</q-btn>
+
+<q-form v-show="Showmodal">
+  <q-input v-model="ide" label="Nombre"></q-input>
+  <q-input v-model="cantidad" label="Cantidad"></q-input>
+  <q-input v-model="precio" label="Precio"></q-input>
+  <q-btn @click="agregarArrayArticulos()">agregar otro</q-btn>
+  <q-btn @click="Showmodal = false; agregarArrayArticulos()" >Listo</q-btn>
+</q-form>
+
+
+          <q-field color="orange" standout bottom-slots :model-value="text" label="Valor" stack-label counter clearable>
+            <template v-slot:prepend>
+              <q-icon name="place" />
+            </template>
+            <template v-slot:control>
+              <input class="self-center full-width no-outline"  v-model="valor" disabled>
+            </template>
+            <template v-slot:append>
+              <q-icon name="favorite" />
+            </template>
+            <template v-slot:hint> Field hint </template>
+          </q-field>
+
+
+
+
           <q-field color="orange" standout bottom-slots :model-value="text" label="Total" stack-label counter clearable>
             <template v-slot:prepend>
               <q-icon name="place" />
             </template>
             <template v-slot:control>
-              <input class="self-center full-width no-outline" type="text" v-model="salida.total">
+              <input class="self-center full-width no-outline" type="text" v-model="total">
             </template>
             <template v-slot:append>
               <q-icon name="favorite" />
@@ -137,24 +155,11 @@
         </div>
       </div>
 
-      <!-- articulos -->
-      <p>agrega tus articulos aqui abajo</p>
-
-      <q-btn @click="Showmodal = true">Agregar Articulo</q-btn>
-
-      <q-form v-show="Showmodal">
-        <q-input v-model="ide" label="Nombre"></q-input>
-        <q-input v-model="cantidad" label="Cantidad"></q-input>
-        <q-input v-model="precio" label="Precio"></q-input>
-        <q-btn @click="agregarArrayArticulos()">agregar otro</q-btn>
-        <q-btn @click="Showmodal = false; agregarArrayArticulos()">Listo</q-btn>
-      </q-form>
+    
 
 
       <q-card-actions align="right">
-        <q-btn @click="editarCliente(cliente._id)" v-show="showBtn == false" v-close-popup flat color="primary"
-          label="Editar" />
-        <q-btn @click="agregarSalida()" v-show="showBtn == true" v-close-popup flat color="primary" label="Cerrar" />
+      <q-btn @click="agregarSalida(); showBtn = false" v-show="showBtn == true" v-close-popup flat color="primary" label="Cerrar" />
 
         <q-btn v-close-popup flat color="primary" round icon="event" />
       </q-card-actions>
@@ -162,17 +167,23 @@
   </q-dialog>
 
 
-  <!-- modal articulos -->
-  <q-dialog v-model="Showmodal">
+  <!-- modal para tener una vista de los articulos relacionados con ese movimiento o salida -->
+  <q-dialog v-model="Showmodal2">
     <q-card>
       <div class="top">
         <h1>Aqui puede ver los articulos que fueron vendidos 😁</h1>
-        <q-btn icon="close" @click="Showmodal = false"></q-btn>
+        <q-btn icon="close" @click="Showmodal2 = false"></q-btn>
       </div>
       <q-table title="Articulos" :rows="rowsArticulos" :columns="columnsArticulos" row-key="name">
         <template v-slot:body-cell-Nombre="props">
           <q-td :props="props" class="q-pa-sm">
             <p>{{ props.row.id.nombre }}</p>
+          </q-td>
+        </template>
+
+        <template v-slot:body-cell-Precio="props">
+          <q-td :props="props" class="q-pa-sm">
+            <p>{{ props.row.precio }}</p>
           </q-td>
         </template>
       </q-table>
@@ -181,7 +192,7 @@
 
 
 
-  <!-- modal editar -->
+  <!-- modal editar salida -->
 
   <q-dialog v-model="card2">
     <q-card class="my-card">
@@ -194,37 +205,45 @@
           <div class="containerTop">
             <q-input class="btnEditar" type="number" v-model="salida.numeroFactura" label="N-factura"></q-input>
             <q-input class="btnEditar" type="date" v-model="salida.fecha" label="Fecha"></q-input>
-            <q-input class="btnEditar" type="number" v-model="salida.valor" label="valor"></q-input>
+            <q-input class="btnEditar" type="number" v-model="valorEditar" label="valor"></q-input>
             <q-input class="btnEditar" type="number" v-model="salida.iva" label="iva(%)"></q-input>
-            <q-input class="btnEditar" type="number" v-model="salida.total" label="Total"></q-input>
+            <q-input class="btnEditar" type="number" v-model="total" label="Total"></q-input>
           </div>
-          <!--  articulos -->
 
-          <input type="text" v-for="articulo in rowsArticulos" v-model="articulo.id.nombre"  />
+          <!--  lista de articulos del modal editar  -->
+          <q-table title="Articulos" :rows="rowsArticulos" :columns="columnsArticulos2" row-key="name">
+            <template late v-slot:body-cell-Nombre="props">
+              <q-td :props="props" class="q-pa-sm">
+                <p>{{ props.row.id.nombre }}</p>
+              </q-td>
+            </template>
+
+            <template late v-slot:body-cell-Cantidad="props">
+              <q-td :props="props" class="q-pa-sm">
+                <q-input type="number" v-model="props.row.cantidad"></q-input>
+              </q-td>
+            </template>
+
+            <template late v-slot:body-cell-Precio="props">
+              <q-td :props="props" class="q-pa-sm">
+                <q-input type="number" v-model="props.row.precio"></q-input>
+              </q-td>
+            </template>
+
+            <template late v-slot:body-cell-Eliminar="props">
+              <q-td :props="props" class="q-pa-sm">
+              <q-btn icon="close"></q-btn>
+              </q-td>
+            </template>
+          </q-table>
 
         </div>
       </div>
 
-      <!-- articulos -->
-      <p>agrega tus articulos aqui abajo</p>
-
-      <q-btn @click="Showmodal = true">Agregar Articulo</q-btn>
-
-      <q-form v-show="Showmodal">
-        <q-input v-model="ide" label="Nombre"></q-input>
-        <q-input v-model="cantidad" label="Cantidad"></q-input>
-        <q-input v-model="precio" label="Precio"></q-input>
-        <q-btn @click="agregarArrayArticulos()">agregar otro</q-btn>
-        <q-btn @click="Showmodal = false; agregarArrayArticulos()">Listo</q-btn>
-      </q-form>
-
-
+      <!-- aqui esta el bendito btn de cerrado que cada rato se me pierde -->
       <q-card-actions align="right">
-        <q-btn @click="editarCliente(cliente._id)" v-show="showBtn == false" v-close-popup flat color="primary"
+        <q-btn @click="editarSalida(salida._id)" v-show="showBtn == false" v-close-popup flat color="primary"
           label="Editar" />
-        <q-btn @click="agregarSalida()" v-show="showBtn == true" v-close-popup flat color="primary" label="Cerrar" />
-
-        <q-btn v-close-popup flat color="primary" round icon="event" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -232,8 +251,9 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import { getData, postData } from "../services/apiClient.js";
+import { computed, onMounted, ref, watch } from "vue";
+import { getData, postData, putData } from "../services/apiClient.js";
+import Swal from 'sweetalert2';
 const salida = ref({
   numeroFactura: "",
   fecha: "",
@@ -248,13 +268,48 @@ const salida = ref({
 let text = ref("Field content")
 const showBtn = ref(false)
 const Showmodal = ref(false)
+const Showmodal2 = ref(false)
 const modalArticulo = ref(false)
 const card = ref(false)
 const card2 = ref(false)
-
-
 const rows = ref([]);
 const rowsArticulos = ref([])
+const totalesPorProducto = ref([])
+//articulos de formulario
+
+const ide = ref(""); //lo que guardo aqui es un nombre y busco el objeto con ese nombre en la base y luego guardo el id de ese objeto
+const cantidad = ref(0);
+const precio = ref(0);
+
+
+const valor = computed(()=>{
+  const Calculo = salida.value.articulos.reduce((acumulador,elemento)=>{
+    return acumulador + (eliminarSeparadores(elemento.cantidad) * eliminarSeparadores(elemento.precio))
+  }
+  ,0)
+  salida.value.valor=Calculo
+  return formatearNumero(Calculo)
+})
+
+
+const total = computed(()=>{
+  const Calculo = CalcularIva(salida.value.valor, eliminarSeparadores(salida.value.iva))
+  salida.value.total = Calculo
+  return formatearNumero(Calculo)
+})
+
+const valorEditar = computed(() => {
+  // Asegúrate de que rowsArticulos contiene datos
+  if (!rowsArticulos.value || rowsArticulos.value.length === 0) return 0;
+  // Calcula el total directamente
+  const totalEditar = rowsArticulos.value.reduce((total, articulo) => {
+    return total + (eliminarSeparadores(articulo.cantidad) * eliminarSeparadores(articulo.precio) || 0); // Multiplica cantidad por precio, y maneja valores nulos/indefinidos
+  }, 0)
+  salida.value.valor = totalEditar
+  return formatearNumero(totalEditar)
+});
+
+
 
 
 const columnsArticulos = ref([
@@ -262,7 +317,34 @@ const columnsArticulos = ref([
     name: "Nombre",
     align: "center",
     label: "Nombre",
+    field: row => row.id.nombre 
+  },
+  {
+    name: "Cantidad",
+    align: "center",
+    label: "Cantidad",
+    field: "cantidad"
+  },
+  {
+    name: "Precio",
+    align: "center",
+    label: "Precio",
+    field: "precio"
+  },
+])
+
+const columnsArticulos2 = ref([
+  {
+    name: "Nombre",
+    align: "center",
+    label: "Nombre",
     field: "id"
+  },
+  {
+    name: "Cantidad",
+    align: "center",
+    label: "Cantidad",
+    field: "cantidad"
   },
   {
     name: "Precio",
@@ -271,12 +353,10 @@ const columnsArticulos = ref([
     field: "precio"
   },
   {
-    name: "Cantidad",
+    name: "Eliminar",
     align: "center",
-    label: "Cantidad",
-    field: "cantidad" // estoy haciendo la tabla para los articulos
-
-  }
+    label: "Eliminar",
+    }
 ])
 
 let columns = ref([
@@ -352,14 +432,16 @@ const agregarSalida = async () => {
         fecha: salida.value.fecha,
         articulos: salida.value.articulos,
         valor: salida.value.valor,
-        iva: salida.value.iva,
+        iva: eliminarSeparadores(salida.value.iva),
         total: salida.value.total,
-        estado: salida.value.estado
+        estado:1
       })
 
     if (response.movimiento) {
       console.log("salida agregada", response.movimiento);
+      console.log("articulos", salida.value.articulos);
       dataSalidas()
+      console.log("salida" , salida.value);
     }
     else {
       console.log("error al registrar la salida" + error.message);
@@ -370,32 +452,85 @@ const agregarSalida = async () => {
   }
 }
 
-//articulos de formulario
-const ide = ref("");
-const cantidad = ref("");
-const precio = ref("");
-
 function agregarArrayArticulos() {
-  salida.value.articulos.push({
+  if(ide.value && cantidad.value && precio.value){
+    salida.value.articulos.push({
     id: ide.value,
     cantidad: cantidad.value,
-    precio: precio.value
+    precio: eliminarSeparadores(precio.value)
   })
+  console.log("validacion1" , salida.value.articulos);
+  }
+  else{
+    Swal.fire({
+  title: 'Alerta',
+  text: 'Por favor rellenar los campos correspondientes a los articulos',
+  icon: 'error',
+  customClass: {
+    popup: 'swal-popup-zindex'  // Añadimos una clase personalizada
+  }
+});
+  }
   ResetMiniModal()
-
 }
 
+const editarSalida = async(id)=>{
+  try {
+    const response = await putData("movimientos/actualizar/" + id , 
+      {
+        tipo:2,
+        numeroFactura:salida.value.numeroFactura,
+        fecha:salida.value.fecha,
+        articulos:rowsArticulos.value,
+        valor:salida.value.valor,
+        iva:salida.value.iva,
+        total:salida.value.total,
+        estado:1,
+      })
+      if(response.movimiento){
+        console.log("salida editada correctamente", response.movimiento);
+        dataSalidas()
+      }
+      else{
+        clg("error al editar la salida" + error.message)
+      }
 
+  } catch (error) {
+    console.log("error al intentar editar");
+    console.log(salida.value);
+  }
+}
+const resetModal = () => {
+  salida.value = {
+    numeroFactura: "",
+    fecha: "",
+    articulos: [],
+    valor: "",
+    iva: "",
+    total: "",
+    estado: "",
+    ids: []
+  };
+  rowsArticulos.value = [];
+};
 function ResetMiniModal() {
   ide.value = ""
   cantidad.value = ""
   precio.value = ""
+}
+function eliminarSeparadores (valor){
+  return Number(String(valor).replace(/[\.%]/g, '').trim());
+}
+const formatearNumero = (numero) => {
+    return numero.toLocaleString('es-ES'); // 'es-ES' usa puntos como separadores de miles
+};
+function CalcularIva (cantidad, iva){
+  const Iva = cantidad * (iva / 100)
+  return cantidad + Iva
 }
 
 onMounted(() => {
   dataSalidas();
 });
 </script>
-
-
 <style src="../styles/salidas.css" scoped></style>
