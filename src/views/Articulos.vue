@@ -119,7 +119,7 @@
           label="Editar" />
         <q-btn v-show="showBtn == true" @click="agregarArticulo(); showBtn = false" v-close-popup flat color="primary"
           label="agregar" />
-        <q-btn v-close-popup flat color="primary" label="Cerrar" />
+        <q-btn v-close-popup flat color="primary"  icon="close"/>
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -341,9 +341,11 @@ onMounted(() => {
 
 }
 
-.tabla {
-  background-color: var(--q-primary);
-}
+
+  .tabla{
+    background-color: var(--q-primary);
+    margin: 50px;
+  }
 
 .home {
   display: none;

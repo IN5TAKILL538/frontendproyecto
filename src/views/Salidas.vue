@@ -4,11 +4,11 @@
     <q-btn @click="showBtn = true; card = true" icon="add">Agregar salida</q-btn>
 
 
-    <q-table title="SALIDAS" :rows="rows" :columns="columns" row-key="name">
+    <q-table title="SALIDAS" :rows="rows" :columns="columns" row-key="name" class="tabla">
 
       <template v-slot:body-cell-Estado="props">
         <q-td :props="props" class="q-pa-sm">
-          <span style="background-color: green" v-if="props.row.status == 1">Activo</span>
+          <span style="background-color: green" v-if="props.row.estado == 1">Activo</span>
           <span style="background-color: red" v-else>Inactivo</span>
         </q-td>
       </template>
@@ -25,10 +25,10 @@
             <img src="../assets/agregar2.gif" alt="" />
           </button>
 
-          <button v-if="props.row.estado == 1" class="icono">
+          <button v-if="props.row.estado == 1" class="icono" id="activacion">
             <img src="../assets/inactivar2.gif" alt="" />
           </button>
-          <button v-else class="icono">
+          <button v-else class="icono" id="desactivacion">
             <img src="../assets/verificado.gif" alt="" />
           </button>
         </q-td>
@@ -62,7 +62,7 @@
             <template v-slot:append>
               <q-icon name="favorite" />
             </template>
-            <template v-slot:hint> Field hint </template>
+            
           </q-field>
 
 
@@ -76,7 +76,7 @@
             <template v-slot:append>
               <q-icon name="favorite" />
             </template>
-            <template v-slot:hint> Field hint </template>
+            
           </q-field>
 
 
@@ -90,7 +90,7 @@
             <template v-slot:append>
               <q-icon name="favorite" />
             </template>
-            <template v-slot:hint> Field hint </template>
+            
           </q-field>
 
 
@@ -118,7 +118,7 @@
             <template v-slot:append>
               <q-icon name="favorite" />
             </template>
-            <template v-slot:hint> Field hint </template>
+            
           </q-field>
 
 
@@ -134,7 +134,7 @@
             <template v-slot:append>
               <q-icon name="favorite" />
             </template>
-            <template v-slot:hint> Field hint </template>
+          
           </q-field>
 
 
@@ -149,7 +149,7 @@
             <template v-slot:append>
               <q-icon name="favorite" />
             </template>
-            <template v-slot:hint> Field hint </template>
+            
           </q-field>
 
         </div>
@@ -159,9 +159,9 @@
 
 
       <q-card-actions align="right">
-      <q-btn @click="agregarSalida(); showBtn = false" v-show="showBtn == true" v-close-popup flat color="primary" label="Cerrar" />
+      <q-btn @click="agregarSalida(); showBtn = false" v-show="showBtn == true" v-close-popup flat color="primary" label="Agregar" />
 
-        <q-btn v-close-popup flat color="primary" round icon="event" />
+        <q-btn v-close-popup flat color="primary" round icon="close" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -412,6 +412,7 @@ let columns = ref([
 
 const dataSalidas = async () => {
   try {
+    document.getElementById("home").style.display = "none"
     const response = await getData("/movimientos/tipo/salidas");
     if (response.salidas) {
       rows.value = response.salidas;

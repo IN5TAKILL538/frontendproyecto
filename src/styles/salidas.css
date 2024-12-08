@@ -83,3 +83,21 @@ h1{
     position: absolute;
     z-index: 10000 ;
 }
+
+.activo{
+    background-color: rgb(4, 151, 53);
+  border: 1px;
+    
+  }
+  .inactivo{
+    background-color: rgb(241, 122, 128);
+     border: 1px;
+  
+  }
+  .tabla{
+    background-color: var(--q-primary);
+    margin: 50px;
+  }
+  .home{
+    display: none;
+  }
