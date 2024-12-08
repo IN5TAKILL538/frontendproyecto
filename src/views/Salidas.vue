@@ -269,12 +269,11 @@ let text = ref("Field content")
 const showBtn = ref(false)
 const Showmodal = ref(false)
 const Showmodal2 = ref(false)
-const modalArticulo = ref(false)
 const card = ref(false)
 const card2 = ref(false)
 const rows = ref([]);
 const rowsArticulos = ref([])
-const totalesPorProducto = ref([])
+const articulos = ref({})
 //articulos de formulario
 
 const ide = ref(""); //lo que guardo aqui es un nombre y busco el objeto con ese nombre en la base y luego guardo el id de ese objeto
@@ -422,6 +421,22 @@ const dataSalidas = async () => {
   }
 };
 
+const dataArticulos = async () => {
+  document.getElementById("home").style.display = "none"
+  try {
+    const response = await getData("/articulos/articulos")
+    if (response.articulos) {
+      articulos.value = response.articulos
+    }
+    else {
+
+      console.log("respuesta sin articulos", response);
+    }
+  } catch (error) {
+    console.log("error al obtener articulos", error.message);
+  }
+};
+
 
 const agregarSalida = async () => {
   try {
@@ -531,6 +546,7 @@ function CalcularIva (cantidad, iva){
 
 onMounted(() => {
   dataSalidas();
+  dataArticulos();
 });
 </script>
 <style src="../styles/salidas.css" scoped></style>
