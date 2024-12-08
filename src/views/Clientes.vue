@@ -130,12 +130,11 @@
       </div>
 
       <q-card-actions align="right">
-        <q-btn @click="editarCliente(cliente._id)" v-show="showBtn == false" v-close-popup flat color="primary"
+        <q-btn v-show="showBtn == false" @click="editarArticulo(articulo._id)" v-close-popup flat color="primary"
           label="Editar" />
-        <q-btn @click="agregarCliente()" v-show="showBtn == true" v-close-popup flat color="primary"
-          label="Agregar" />
-
-        <q-btn v-close-popup flat color="primary" round icon="event" />
+        <q-btn v-show="showBtn == true" @click="agregarArticulo(); showBtn = false" v-close-popup flat color="primary"
+          label="agregar" />
+        <q-btn v-close-popup flat color="primary" icon="close" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -306,9 +305,11 @@ onMounted(() => {
    border: 1px;
   
 }
-.tabla{
-  background-color: var(--q-primary);
-}
+
+  .tabla{
+    background-color: var(--q-primary);
+    margin: 50px;
+  }
 .home{
   display: none;
 }
