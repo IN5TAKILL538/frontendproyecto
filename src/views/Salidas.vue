@@ -100,7 +100,15 @@
 <q-btn @click="Showmodal = true">Agregar Articulo</q-btn>
 
 <q-form v-show="Showmodal">
-  <q-input v-model="ide" label="Nombre"></q-input>
+<!--   <q-input v-model="ide" label="Nombre"></q-input> -->
+
+  <select v-model="ide" name="articulo" id="articulo">
+    <option value="" disabled>Seleccionar</option>
+    <option v-for="articulo in articulos" :value="articulo.nombre" :key="articulo.nombre">
+      {{ articulo.nombre }}
+    </option>
+  </select>
+
   <q-input v-model="cantidad" label="Cantidad"></q-input>
   <q-input v-model="precio" label="Precio"></q-input>
   <q-btn @click="agregarArrayArticulos()">agregar otro</q-btn>
@@ -136,22 +144,6 @@
             </template>
           
           </q-field>
-
-
-          <q-field color="orange" standout bottom-slots :model-value="text" label="Estado" stack-label counter
-            clearable>
-            <template v-slot:prepend>
-              <q-icon name="place" />
-            </template>
-            <template v-slot:control>
-              <input class="self-center full-width no-outline" type="text" v-model="salida.estado">
-            </template>
-            <template v-slot:append>
-              <q-icon name="favorite" />
-            </template>
-            
-          </q-field>
-
         </div>
       </div>
 

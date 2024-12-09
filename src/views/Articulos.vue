@@ -20,11 +20,13 @@
       </template>
       <template v-slot:body-cell-opciones="props">
         <q-td :props="props" class="q-pa-sm">
+
           <button @click="card = true; articulo = props.row; showBtn = false" class="icono"><img
               src="../assets/agregar2.gif" alt=""> </button>
-          <button @click="editarestado()" v-if="props.row.estado == 1" class="icono"><img src="../assets/inactivar2.gif"
+
+          <button @click="editarestado('inactivar', props.row._id)" v-if="props.row.estado == 1" class="icono"><img src="../assets/inactivar2.gif"
               alt=""></button>
-          <button @click="editarestado()" v-else class="icono"><img src="../assets/verificado.gif" alt=""></button>
+          <button @click="editarestado('activar',props.row._id)" v-else class="icono"><img src="../assets/verificado.gif" alt=""></button>
         </q-td>
       </template>
     </q-table>
@@ -85,15 +87,15 @@
               <q-icon name="place" />
             </template>
             <template v-slot:control>
+
               <select v-model="articulo.categoria.nombre" name="categoria" id="categoria">
                 <option value="" disabled selected>Seleccionar</option>
-
                 <!-- toca arreglar esta monda por que al editar espera un id péro al agregar espera un string que seria el nombre , me refiero al backend -->
-
                 <option v-for="categoria in categorias" :value="categoria._id" :key="categoria._id">
                   {{ categoria.nombre }}
                 </option>
               </select>
+
             </template>
           </q-field>
 
@@ -207,16 +209,22 @@ let columns = ref([
   },
 ]);
 
-function editarestado() {
-  if (response.estado == 0 && articulo.value.estado == 0) {
-    response.estado = 1
-    articulo.value.estado = 1
-  }
-  else {
-    estado = 0
-    articulo.value.estado = 0
+const editarestado = async(accion,id)=>{
+  try {
+    const response= await putData("/articulos/" + accion + "/" + id)
+    if(response.articulo){
+      dataArticulos()
+      console.log("estado modificado correctamente" , response.articulo);
+    }
+    else{
+      console.log("algo salio mal" , response);
+    }
+  } catch (error) {
+    console.log("error al editar el estado");
   }
 }
+  
+
 
 const dataArticulos = async () => {
   document.getElementById("home").style.display = "none"
@@ -253,7 +261,8 @@ const editarArticulo = async (id) => {
 
 
     if (response.articulo) {
-      console.log("articulo editado" + response.articulo);
+      console.log("articulo editado" , response.articulo);
+      console.log("estos son los datos que enviamos al editar" , articulo.value)
       dataArticulos()
       Reset()
     }

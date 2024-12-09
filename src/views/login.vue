@@ -17,7 +17,7 @@
                 
             Iniciar Sesion
             </button> -->
-            <q-btn :loading="loading" color="secondary" @click="iniciarSesion()" label="Iniciar sesion"  />
+            <q-btn id="btnLoading" :loading="loading" color="secondary" @click="iniciarSesion()" label="Iniciar sesion"  />
         </div>
     </div>
     
