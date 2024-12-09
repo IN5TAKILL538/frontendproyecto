@@ -63,7 +63,7 @@
        <template v-slot:append>
          <q-icon name="favorite" />
        </template>
-       <template v-slot:hint> Field hint </template>
+       
      </q-field>
 
 
@@ -77,7 +77,7 @@
        <template v-slot:append>
          <q-icon name="favorite" />
        </template>
-       <template v-slot:hint> Field hint </template>
+       
      </q-field>
 
 
@@ -91,17 +91,17 @@
        <template v-slot:append>
          <q-icon name="favorite" />
        </template>
-       <template v-slot:hint> Field hint </template>
+      
      </q-field>
 
 
        <!-- modal para agregar articulos a la hora de registrar una salida -->
- <p>agrega tus articulos aqui abajo</p>
+
 
 <q-btn @click="Showmodal = true">Agregar Articulo</q-btn>
 
-<q-form v-show="Showmodal">
-<q-input v-model="ide" label="Nombre"></q-input>
+<q-form v-show="Showmodal" class="modalMini">
+<q-input v-model="ide" label="Nombre" ></q-input>
 <q-input v-model="cantidad" label="Cantidad"></q-input>
 <q-input v-model="precio" label="Precio"></q-input>
 <q-btn @click="agregarArrayArticulos()">agregar otro</q-btn>
@@ -119,7 +119,7 @@
        <template v-slot:append>
          <q-icon name="favorite" />
        </template>
-       <template v-slot:hint> Field hint </template>
+       
      </q-field>
 
 
@@ -170,7 +170,7 @@
 
 <!-- modal para tener una vista de los articulos relacionados con ese movimiento o salida -->
 <q-dialog v-model="Showmodal2">
-<q-card>
+<q-card >
  <div class="top">
    <h1>Aqui puede ver los articulos que fueron vendidos 😁</h1>
    <q-btn icon="close" @click="Showmodal2 = false"></q-btn>

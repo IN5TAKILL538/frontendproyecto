@@ -32,7 +32,7 @@
   <q-dialog v-model="card" persistent>
     <q-card class="my-card">
       <div class="q-pa-md">
-        <div class="q-gutter-y-md column" style="min-width: 400px">
+        <div class="q-gutter-y-md column"  >
 
           <!-- Nombre -->
           <q-field color="orange" standout bottom-slots :model-value="text" label="Nombre" stack-label counter clearable
@@ -46,7 +46,7 @@
           </q-field>
 
           <!-- Precio -->
-          <q-field color="orange" standout bottom-slots :model-value="number" label="Precio" stack-label counter
+          <q-field color="orange" standout bottom-slots :model-value="precio" label="Precio" stack-label counter
             clearable>
             <template v-slot:prepend>
               <q-icon name="place" />
@@ -69,7 +69,7 @@
 
           <!-- Imagen -->
           <q-field color="orange" standout bottom-slots :model-value="text" label="Imagen" stack-label counter clearable
-            :rules="[val => !val || val.startsWith('http') || 'La URL de la imagen debe ser válida']">
+            :rules="[val =>val.startsWith('http') || 'La URL de la imagen debe ser válida']">
             <template v-slot:prepend>
               <q-icon name="place" />
             </template>
@@ -349,5 +349,15 @@ onMounted(() => {
 
 .home {
   display: none;
+}
+@media (max-width: 500px) {
+    .tabla {
+        margin: 10px; /* Elimina el margen */
+    }
+}
+@media (min-width: 500px) {
+    .q-gutter-y-md{
+      min-width: 400px;
+    }
 }
 </style>
