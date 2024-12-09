@@ -101,3 +101,21 @@ h1{
   .home{
     display: none;
   }
+
+  @media (max-width: 500px) {
+    .tabla {
+        margin: 10px;
+    }
+}
+@media (min-width: 500px) {
+    .q-gutter-y-md{
+      min-width: 400px;
+    }
+}
+.modalMini{
+padding: 12px;
+display: flex;
+justify-content: center;
+flex-direction: column;
+text-align: center;
+}
