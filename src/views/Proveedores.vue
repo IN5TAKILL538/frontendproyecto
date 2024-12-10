@@ -297,4 +297,14 @@ onMounted(() => {
 .home{
   display: none;
 }
+@media (max-width: 500px) {
+    .tabla {
+        margin: 10px; /* Elimina el margen */
+    }
+}
+@media (min-width: 500px) {
+    .q-gutter-y-md{
+      min-width: 400px;
+    }
+}
 </style>

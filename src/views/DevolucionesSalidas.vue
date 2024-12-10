@@ -96,16 +96,16 @@
 
 
             <!-- modal para agregar articulos a la hora de registrar una salida -->
-      <p>agrega tus articulos aqui abajo</p>
+           
 
 <q-btn @click="Showmodal = true">Agregar Articulo</q-btn>
 
-<q-form v-show="Showmodal">
-  <q-input v-model="ide" label="Nombre"></q-input>
-  <q-input v-model="cantidad" label="Cantidad"></q-input>
-  <q-input v-model="precio" label="Precio"></q-input>
-  <q-btn @click="agregarArrayArticulos()">agregar otro</q-btn>
-  <q-btn @click="Showmodal = false; agregarArrayArticulos()" >Listo</q-btn>
+<q-form v-show="Showmodal" class="modalMini">
+<q-input v-model="ide" label="Nombre" ></q-input>
+<q-input v-model="cantidad" label="Cantidad"></q-input>
+<q-input v-model="precio" label="Precio"></q-input>
+<q-btn @click="agregarArrayArticulos()">agregar otro</q-btn>
+<q-btn @click="Showmodal = false; agregarArrayArticulos()" >Listo</q-btn>
 </q-form>
 
 

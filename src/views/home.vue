@@ -4,7 +4,7 @@
       <q-toolbar id="cabeza">
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" id="menuClases" align="left" />
         <q-toolbar-title>INVENTARIO</q-toolbar-title>
-        <q-btn to="/" icon="logout" @click="cerrarSesion()" label="Cerrar sesión"></q-btn>
+        <q-btn to="/" icon="logout" @click="cerrarSesion()" label="LOG OUT"></q-btn>
       </q-toolbar>
     </q-header>
 

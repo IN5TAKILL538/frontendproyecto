@@ -49,7 +49,7 @@
   <q-dialog v-model="card">
     <q-card class="my-card">
       <div class="q-pa-md">
-        <div class="q-gutter-y-md column" style="min-width: 400px">
+        <div class="q-gutter-y-md column" >
 
 
           <q-field color="orange" standout bottom-slots :model-value="text" label="Nombre" stack-label counter
@@ -312,6 +312,16 @@ onMounted(() => {
   }
 .home{
   display: none;
+}
+@media (max-width: 500px) {
+    .tabla {
+        margin: 10px; /* Elimina el margen */
+    }
+}
+@media (min-width: 500px) {
+    .q-gutter-y-md{
+      min-width: 400px;
+    }
 }
 
 </style>
