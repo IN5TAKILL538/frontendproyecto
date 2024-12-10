@@ -99,12 +99,21 @@
 
 <q-btn @click="Showmodal = true">Agregar Articulo</q-btn>
 
-<q-form v-show="Showmodal" class="modalMini">
-<q-input v-model="ide" label="Nombre" ></q-input>
-<q-input v-model="cantidad" label="Cantidad"></q-input>
-<q-input v-model="precio" label="Precio"></q-input>
-<q-btn @click="agregarArrayArticulos()">agregar otro</q-btn>
-<q-btn @click="Showmodal = false; agregarArrayArticulos()" >Listo</q-btn>
+
+<q-form v-show="Showmodal">
+<!--   <q-input v-model="ide" label="Nombre"></q-input> -->
+
+  <select v-model="ide" name="articulo" id="articulo">
+    <option value="" disabled>Seleccionar</option>
+    <option v-for="articulo in articulos" :value="articulo.nombre" :key="articulo.nombre">
+      {{ articulo.nombre }}
+    </option>
+  </select>
+
+  <q-input v-model="cantidad" label="Cantidad"></q-input>
+  <q-input v-model="precio" label="Precio"></q-input>
+  <q-btn @click="agregarArrayArticulos()">agregar otro</q-btn>
+  <q-btn @click="Showmodal = false; agregarArrayArticulos()" >Listo</q-btn>
 </q-form>
 
 
@@ -136,22 +145,6 @@
             </template>
           
           </q-field>
-
-
-          <q-field color="orange" standout bottom-slots :model-value="text" label="Estado" stack-label counter
-            clearable>
-            <template v-slot:prepend>
-              <q-icon name="place" />
-            </template>
-            <template v-slot:control>
-              <input class="self-center full-width no-outline" type="text" v-model="salida.estado">
-            </template>
-            <template v-slot:append>
-              <q-icon name="favorite" />
-            </template>
-            
-          </q-field>
-
         </div>
       </div>
 
@@ -269,12 +262,11 @@ let text = ref("Field content")
 const showBtn = ref(false)
 const Showmodal = ref(false)
 const Showmodal2 = ref(false)
-const modalArticulo = ref(false)
 const card = ref(false)
 const card2 = ref(false)
 const rows = ref([]);
 const rowsArticulos = ref([])
-const totalesPorProducto = ref([])
+const articulos = ref({})
 //articulos de formulario
 
 const ide = ref(""); //lo que guardo aqui es un nombre y busco el objeto con ese nombre en la base y luego guardo el id de ese objeto
@@ -423,6 +415,22 @@ const dataSalidas = async () => {
   }
 };
 
+const dataArticulos = async () => {
+  document.getElementById("home").style.display = "none"
+  try {
+    const response = await getData("/articulos/articulos")
+    if (response.articulos) {
+      articulos.value = response.articulos
+    }
+    else {
+
+      console.log("respuesta sin articulos", response);
+    }
+  } catch (error) {
+    console.log("error al obtener articulos", error.message);
+  }
+};
+
 
 const agregarSalida = async () => {
   try {
@@ -532,6 +540,7 @@ function CalcularIva (cantidad, iva){
 
 onMounted(() => {
   dataSalidas();
+  dataArticulos();
 });
 </script>
 <style src="../styles/salidas.css" scoped></style>
