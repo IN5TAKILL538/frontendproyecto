@@ -271,7 +271,7 @@ const editarArticulo = async (id) => {
     }
   } catch (error) {
     console.log("error al intentat editar");
-    console.log(articulo.value.categoria.nombre);
+    console.log(articulo.value);
 
   }
 }
