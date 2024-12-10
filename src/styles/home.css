@@ -17,7 +17,13 @@
   display: flex;
   flex-wrap: wrap;
 }
-
+@media (max-width: 500px) {
+  #cabeza{
+    margin: 0%;
+    padding: 0%;
+    
+  }
+}
 
 
 

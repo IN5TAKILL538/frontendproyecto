@@ -95,9 +95,10 @@
 
 
             <!-- modal para agregar articulos a la hora de registrar una salida -->
-      <p>agrega tus articulos aqui abajo</p>
+            
 
 <q-btn @click="Showmodal = true">Agregar Articulo</q-btn>
+
 
 <q-form v-show="Showmodal">
 <!--   <q-input v-model="ide" label="Nombre"></q-input> -->

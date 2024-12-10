@@ -26,10 +26,10 @@
 
   <!--modal-->
 
-  <q-dialog v-model="card">
+  <q-dialog v-model="card" class="modal">
     <q-card class="my-card">
       <div class="q-pa-md">
-        <div class="q-gutter-y-md column" style="min-width: 400px">
+        <div class="q-gutter-y-md column" >
 
 
           <q-field color="orange" standout bottom-slots :model-value="text" label="Nombre" stack-label counter
@@ -44,7 +44,7 @@
               <q-icon name="favorite" />
             </template>
 
-            <template v-slot:hint> Field hint </template>
+
           </q-field>
 
           <q-field color="orange" standout bottom-slots :model-value="text" label="Descripcion" stack-label counter
@@ -59,7 +59,7 @@
               <q-icon name="favorite" />
             </template>
 
-            <template v-slot:hint> Field hint </template>
+          
           </q-field>
 
           <q-field color="orange" standout bottom-slots :model-value="text" label="Estado" stack-label counter clearable>
@@ -232,4 +232,24 @@ border: 1px;
     background-color: var(--q-primary);
     margin: 50px;
   }
+  @media (max-width: 500px) {
+    
+    .modal{
+      margin: 0px;
+      padding: 0px;
+    }
+    .my-card{
+      margin: 0px;
+      padding: 0px;
+    }    
+    .tabla {
+        margin: 10px; /* Elimina el margen */
+    }
+    
+}
+@media (min-width: 500px) {
+    .q-gutter-y-md{
+      min-width: 400px;
+    }
+}
 </style>

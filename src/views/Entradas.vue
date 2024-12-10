@@ -49,7 +49,7 @@
 <q-dialog v-model="card">
 <q-card class="my-card">
   <div class="q-pa-md">
-    <div class="q-gutter-y-md column" style="min-width: 400px">
+    <div class="q-gutter-y-md column">
 
 
       <q-field color="orange" standout bottom-slots :model-value="text" label="Factura" stack-label counter
@@ -63,7 +63,7 @@
         <template v-slot:append>
           <q-icon name="favorite" />
         </template>
-        <template v-slot:hint> Field hint </template>
+      
       </q-field>
 
 
@@ -77,7 +77,7 @@
         <template v-slot:append>
           <q-icon name="favorite" />
         </template>
-        <template v-slot:hint> Field hint </template>
+        
       </q-field>
 
 
@@ -91,14 +91,15 @@
         <template v-slot:append>
           <q-icon name="favorite" />
         </template>
-        <template v-slot:hint> Field hint </template>
+        
       </q-field>
 
 
         <!-- modal para agregar articulos a la hora de registrar una salida -->
-  <p>agrega tus articulos aqui abajo</p>
+        
 
 <q-btn @click="Showmodal = true">Agregar Articulo</q-btn>
+
 
 <q-form v-show="Showmodal">
   <select v-model="ide" name="articulo" id="articulo">
@@ -124,7 +125,7 @@
         <template v-slot:append>
           <q-icon name="favorite" />
         </template>
-        <template v-slot:hint> Field hint </template>
+       
       </q-field>
 
 
@@ -140,11 +141,10 @@
         <template v-slot:append>
           <q-icon name="favorite" />
         </template>
-        <template v-slot:hint> Field hint </template>
       </q-field>
+
     </div>
   </div>
-
 
 
 
