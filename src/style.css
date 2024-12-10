@@ -1,5 +1,11 @@
 
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+  
 
 #app{
   margin-top: 82px;
