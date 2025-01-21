@@ -45,7 +45,6 @@ const router = useRouter();
 import Swal from 'sweetalert2';
 
 const leftDrawerOpen = ref(false);
-const loading = ref(false);
 const menuItems = ref([
   { label: "ARTICULOS", to: "/articulos", color: "deep-orange" },
   { label: "CATEGORIAS", to: "/categorias", color: "deep-orange" },
