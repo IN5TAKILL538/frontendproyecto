@@ -34,6 +34,7 @@ const password = ref("")
 const router = useRouter()
 const useAuth = useStore()
 const loading = ref(false)
+
 const iniciarSesion = async ()=>{
     loading.value=true
     try {
@@ -43,7 +44,7 @@ const iniciarSesion = async ()=>{
         if(token){
             useAuth.setToken(response.token)
             router.replace("/home")
-        }
+        } 
         else{
             console.log("respuesta sin token", response);
         }

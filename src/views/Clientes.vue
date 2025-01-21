@@ -130,9 +130,9 @@
       </div>
 
       <q-card-actions align="right">
-        <q-btn v-show="showBtn == false" @click="editarArticulo(articulo._id)" v-close-popup flat color="primary"
+        <q-btn v-show="showBtn == false" @click="editarCliente(cliente._id)" v-close-popup flat color="primary"
           label="Editar" />
-        <q-btn v-show="showBtn == true" @click="agregarArticulo(); showBtn = false" v-close-popup flat color="primary"
+        <q-btn v-show="showBtn == true" @click="agregarCliente(); showBtn = false" v-close-popup flat color="primary"
           label="agregar" />
         <q-btn v-close-popup flat color="primary" icon="close" />
       </q-card-actions>
@@ -144,9 +144,7 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import { useStore } from "../store/useStore.js";
 import { getData, putData, postData } from "../services/apiClient.js";
-const mainStore = useStore();
 const rows = ref([])
 const cliente = ref({})
 

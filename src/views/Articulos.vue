@@ -131,9 +131,7 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import { useStore } from "../store/useStore.js";
 import { getData, postData, putData } from "../services/apiClient.js";
-const mainStore = useStore();
 const articulo = ref({
   nombre: "",
   precio: 0,
@@ -227,7 +225,6 @@ const editarestado = async(accion,id)=>{
 
 
 const dataArticulos = async () => {
-  document.getElementById("home").style.display = "none"
   try {
     const response = await getData("/articulos/articulos")
     if (response.articulos) {
@@ -237,10 +234,10 @@ const dataArticulos = async () => {
     }
     else {
 
-      console.log("respuesta sin articulos", response);
+      console.log("respuesta sin articulos", response); 
     }
   } catch (error) {
-    console.log("error al obtener articulos", error.message);
+    console.log("error al obtener articulos", error.name); 
   }
 };
 
@@ -332,8 +329,8 @@ function Reset() {
 
 
 onMounted(() => {
-  dataArticulos()
-  getCategorias()
+    dataArticulos()
+    getCategorias()  
 })
 
 

@@ -300,9 +300,7 @@ const total = computed(()=>{
 })
 
 const valorEditar = computed(() => {
-  // Asegúrate de que rowsArticulos contiene datos
   if (!rowsArticulos.value || rowsArticulos.value.length === 0) return 0;
-  // Calcula el total directamente
   const totalEditar = rowsArticulos.value.reduce((total, articulo) => {
     return total + (eliminarSeparadores(articulo.cantidad) * eliminarSeparadores(articulo.precio) || 0); // Multiplica cantidad por precio, y maneja valores nulos/indefinidos
   }, 0)
