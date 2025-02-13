@@ -1,24 +1,38 @@
 
-.container{
+
+body{
+  height: 100vh;
+  background: rgb(255,183,3);
+background: linear-gradient(80deg, rgba(255,183,3,1) 0%, rgba(1,79,134,1) 64%, rgba(208,0,0,1) 100%);
+}
+
+*{
+  scrollbar-color: #1c5d99 #f0f0f0; /* thumb, track */
+  margin: 0% !important;
+  box-sizing: border-box !important;
+  
+}
+
+#app{
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-  
 
-#app{
-  margin-top: 82px;
+
+
+.container{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
-#app > div > header{
-  background-color: #023e8a !important;
-}
 
 
-#app > div > div:nth-child(4) > aside{
-  display: none;
-}
+
 
 #app > div > div.q-page-container{
   padding: 0% !important;
@@ -35,3 +49,13 @@
 }
 
 
+.tabla{
+  margin: 2% !important;
+}
+
+.q-toolbar {
+  padding: 20px 20px 0px 20px   !important;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}

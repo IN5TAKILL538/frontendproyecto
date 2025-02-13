@@ -1,9 +1,9 @@
 <template>
-  <div>
-
+  <q-toolbar>
+    <q-btn icon="home" to="/home">Inicio</q-btn>
     <q-btn @click="showBtn = true; card = true" icon="add">Agregar salida</q-btn>
-
-
+  </q-toolbar>
+  <div>
     <q-table title="SALIDAS" :rows="rows" :columns="columns" row-key="name" class="tabla">
 
       <template v-slot:body-cell-Estado="props">
@@ -36,7 +36,7 @@
 
       <template v-slot:body-cell-Articulos="props">
         <q-td :props="props" class="q-pa-sm">
-          <q-btn icon="visibility" @click="Showmodal2 = true;
+          <q-btn icon="visibility" style="color: #1a659e;" @click="Showmodal2 = true;
           rowsArticulos = props.row.articulos ; console.log(rowsArticulos);"></q-btn>
         </q-td>
       </template>
@@ -404,11 +404,10 @@ let columns = ref([
 
 const dataSalidas = async () => {
   try {
-    document.getElementById("home").style.display = "none"
     const response = await getData("/movimientos/tipo/salidas");
     if (response.salidas) {
       rows.value = response.salidas;
-      console.log("salidas recibidas", response.salidas);
+      console.log("salidas recibidaers", rows.value);
     }
   } catch (error) {
     console.log("no llegaron las salidas" + error.message);
@@ -416,7 +415,6 @@ const dataSalidas = async () => {
 };
 
 const dataArticulos = async () => {
-  document.getElementById("home").style.display = "none"
   try {
     const response = await getData("/articulos/articulos")
     if (response.articulos) {
@@ -543,4 +541,4 @@ onMounted(() => {
   dataArticulos();
 });
 </script>
-<style src="../styles/salidas.css" scoped></style>
+<style scoped> @import "../styles/salidas.css"; </style>

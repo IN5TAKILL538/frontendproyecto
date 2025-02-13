@@ -1,15 +1,15 @@
 <template>
-  <q-layout view="hHh LpR fFf">
+  <q-layout view="hHh LpR fFf" style="display: flex;">
     <q-header elevated class="bg-primary text-white" height-hint="98">
       <q-toolbar id="cabeza">
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" id="menuClases" align="left" />
         <q-toolbar-title>INVENTARIO</q-toolbar-title>
-        <q-btn to="/" icon="logout" @click="cerrarSesion()" label="LOG OUT"></q-btn>
+        <q-btn to="/" icon="logout" @click="cerrarSesion()" label="Cerrar sesion"></q-btn>
       </q-toolbar>
     </q-header>
 
     <q-drawer 
-      style="background-color: #e5e5e5; box-shadow: 5px 0 5px -2px rgba(0, 0, 0, 0.7); display: flex; flex-direction: column; align-items: center;" 
+      style="background-color: #adb5bd; border-right: 2px solid white;" 
       show-if-above 
       v-model="leftDrawerOpen" 
       side="left" 
@@ -28,14 +28,17 @@
       </q-btn>
     </q-drawer>
 
-    <div class="home" v-show="true" id="home">
-      <h2 class="textoplano">Bienvenido a tu inventario</h2>
-      <p class="textoplano">Tu herramienta confiable para una gestión eficiente y organizada. Simplifica tus procesos,
-        ahorra tiempo y toma el control de tu administración.</p>
-    </div>
+    <q-page-container style="width:100%;" class="homeContainer">
+      <q-page id="q-page">
+        <router-view/>
+      </q-page>
+    </q-page-container>
 
-    <router-view />
+    <q-footer>
+      <p>&copy; Todos los derechos reservados.</p>
+  </q-footer>
   </q-layout>
+ 
 </template>
 
 <script setup>
@@ -72,4 +75,4 @@ const cerrarSesion = () => {
 };
 </script>
 
-<style src="../styles/home.css" scoped></style>
+<style scoped> @import "../styles/home.css"; </style>

@@ -16,32 +16,29 @@
 #cabeza {
   display: flex;
   flex-wrap: wrap;
+  margin: 15px 0px !important;
 }
+
+.q-header {
+  border-bottom: 2px solid white;
+}
+
 @media (max-width: 500px) {
-  #cabeza{
+  #cabeza {
     margin: 0%;
     padding: 0%;
-    
   }
-}
-
-
-
-
-
-
-.q-layout{
-  background-color: #eef4ed;
 }
 
 .containerInfo {
   display: flex;
-  background-color: #dad7cd;
+  background-color: #ced4da;
   padding-top: 25px;
   flex-direction: column;
   margin: 0% !important;
   justify-content: center;
   align-items: center;
+  border-bottom: 2px solid white;
   height: 200px;
   width: 100%;
 }
@@ -53,9 +50,10 @@
 
 .menuOpciones {
   width: 250px;
-  margin: 12px;
-  background-color: #1976D2 !important;
-  font-weight: 500 ;
+  margin: 12px !important;
+  background-color: #1976d2 !important;
+  border: 2px solid white;
+  font-weight: 500;
   padding: 2px;
 }
 .home {
@@ -72,3 +70,13 @@
   width: 400px;
   text-align: center;
 }
+
+.homeContainer {
+  background-color: #1c5d99;
+}
+
+.q-footer {
+  display: flex;
+  justify-content: center;
+}
+

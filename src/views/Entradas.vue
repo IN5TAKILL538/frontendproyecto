@@ -1,10 +1,9 @@
-
 <template>
+  <q-toolbar>
+    <q-btn icon="home" to="/home">Inicio</q-btn>
+    <q-btn @click="showBtn = true; card = true" icon="add">Agregar entrada</q-btn>
+  </q-toolbar>
    <div>
-
-<q-btn @click="showBtn = true; card = true" icon="add">Agregar Entrada</q-btn>
-
-
 <q-table title="ENTRADAS" :rows="rows" :columns="columns" row-key="name" class="tabla">
 
   <template v-slot:body-cell-Estado="props">
@@ -37,8 +36,8 @@
 
   <template v-slot:body-cell-Articulos="props">
     <q-td :props="props" class="q-pa-sm">
-      <q-btn icon="visibility" @click="Showmodal2 = true;
-      rowsArticulos = props.row.articulos ; console.log(rowsArticulos);"></q-btn>
+      <q-btn icon="visibility" style="color: black;" @click="Showmodal2 = true;
+      rowsArticulos = props.row.articulos; console.log(rowsArticulos);"></q-btn>
     </q-td>
   </template>
 </q-table>
@@ -402,7 +401,6 @@ let columns = ref([
 
 const dataEntradas = async () => {
   try {
-    document.getElementById("home").style.display = "none"
     const response = await getData("/movimientos/tipo/entradas");
     if (response.entradas) {
       rows.value = response.entradas;
@@ -414,7 +412,6 @@ const dataEntradas = async () => {
 };
 
 const dataArticulos = async () => {
-  document.getElementById("home").style.display = "none"
   try {
     const response = await getData("/articulos/articulos")
     if (response.articulos) {
@@ -542,4 +539,4 @@ onMounted(() => {
 });
 </script>
 
-<style src="../styles/salidas.css" scoped></style>
+<style scoped> @import "../styles/entradas.css"; </style>

@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <q-toolbar>
+    <q-btn icon="home" to="/home">Inicio</q-btn>
     <q-btn @click="showBtn = true; card = true" icon="add">Agregar proveedor</q-btn>
-
+  </q-toolbar>
+  <div>
     <q-table title="Proveedores" :rows="rows" :columns="columns" row-key="name" class="tabla">
       <template v-slot:body-cell-imagen="props">
         <q-td :props="props" class="q-pa-sm">
@@ -198,7 +200,6 @@ let columns = ref([
 ]);
 
 const dataProveedor = async () => {
-   document.getElementById("home").style.display="none"
   try {
     const response = await getData("/terceros/tipos/proveedor");
     if (response.proveedores) {
@@ -279,32 +280,4 @@ onMounted(() => {
   dataProveedor();
 });
 </script>
-<style scoped>
-.activo {
-  background-color: rgb(4, 151, 53);
-  border: 1px;
-
-}
-
-.inactivo {
-  background-color: rgb(241, 122, 128);
-  border: 1px;
-
-}
-.tabla{
-  background-color: var(--q-primary);
-}
-.home{
-  display: none;
-}
-@media (max-width: 500px) {
-    .tabla {
-        margin: 10px; /* Elimina el margen */
-    }
-}
-@media (min-width: 500px) {
-    .q-gutter-y-md{
-      min-width: 400px;
-    }
-}
-</style>
+<style scoped> @import "../styles/proveedores.css"; </style>

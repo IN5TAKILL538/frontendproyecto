@@ -1,0 +1,42 @@
+
+
+.q-btn{
+    background-color: white;
+}
+
+.activo {
+    background-color: rgb(4, 151, 53);
+    border: 1px;
+  }
+  
+  .inactivo {
+    background-color: rgb(241, 122, 128);
+    border: 1px;
+  
+  }
+  
+  
+    .tabla{
+      background-color: var(--q-primary);
+      border: 2px solid white;
+      color: white;
+    }
+
+  
+  .home {
+    display: none;
+  }
+
+
+
+
+  @media (max-width: 500px) {
+      .tabla {
+          margin: 10px; /* Elimina el margen */
+      }
+  }
+  @media (min-width: 500px) {
+      .q-gutter-y-md{
+        min-width: 400px;
+      }
+  }

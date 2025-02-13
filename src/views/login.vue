@@ -62,4 +62,4 @@ const iniciarSesion = async ()=>{
     }
 }
 </script>
-<style src="../styles/login.css" scoped></style>
+<style scoped> @import "../styles/login.css" </style>

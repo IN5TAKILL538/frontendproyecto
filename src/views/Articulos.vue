@@ -1,7 +1,8 @@
 <template>
-  <q-btn @click="showBtn = true; card = true" icon="add">Agregar articulo</q-btn>
-
-
+  <q-toolbar>
+    <q-btn class="btn" icon="home" to="/home">Inicio</q-btn>
+    <q-btn class="btn" @click="showBtn = true; card = true" icon="add">Agregar articulo</q-btn>
+  </q-toolbar>
   <div class="contenedorTabla">
     <q-table title="ARTICULOS" :rows="rows" :columns="columns" row-key="name" class="tabla">
       <template v-slot:body-cell-avatar="props">
@@ -22,11 +23,11 @@
         <q-td :props="props" class="q-pa-sm">
 
           <button @click="card = true; articulo = props.row; showBtn = false" class="icono"><img
-              src="../assets/agregar2.gif" alt=""> </button>
+              src="../assets/agregar2.gif" title="Editar"> </button>
 
           <button @click="editarestado('inactivar', props.row._id)" v-if="props.row.estado == 1" class="icono"><img src="../assets/inactivar2.gif"
-              alt=""></button>
-          <button @click="editarestado('activar',props.row._id)" v-else class="icono"><img src="../assets/verificado.gif" alt=""></button>
+              title="desactivar"></button>
+          <button @click="editarestado('activar',props.row._id)" v-else class="icono"><img src="../assets/verificado.gif" title="activar"></button>
         </q-td>
       </template>
     </q-table>
@@ -335,35 +336,4 @@ onMounted(() => {
 
 
 </script>
-<style scoped>
-.activo {
-  background-color: rgb(4, 151, 53);
-  border: 1px;
-}
-
-.inactivo {
-  background-color: rgb(241, 122, 128);
-  border: 1px;
-
-}
-
-
-  .tabla{
-    background-color: var(--q-primary);
-    margin: 50px;
-  }
-
-.home {
-  display: none;
-}
-@media (max-width: 500px) {
-    .tabla {
-        margin: 10px; /* Elimina el margen */
-    }
-}
-@media (min-width: 500px) {
-    .q-gutter-y-md{
-      min-width: 400px;
-    }
-}
-</style>
+<style scoped> @import "../styles/articulos.css"; </style>

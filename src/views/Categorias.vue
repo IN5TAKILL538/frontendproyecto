@@ -1,26 +1,38 @@
 <template>
+  <q-toolbar>
+    <q-btn icon="home" to="/home">Inicio</q-btn>
+    <q-btn @click="showBtn = true; card = true" icon="add">Agregar categoria</q-btn>
+  </q-toolbar>
   <div>
-    <q-btn @click="showBtn = true ; card = true" icon="add">Agregar Categoria</q-btn>
 
 
     <q-table title="CATEGORIAS" :rows="rows" :columns="columns" row-key="name" class="tabla">
       <template v-slot:body-cell-status="props">
         <q-td :props="props" class="q-pa-sm">
-<span style="background-color: green" v-if="props.row.estado == 1"
-            ><button class="activo">✅Activo✅</button></span
-          >
-          <span style="background-color: red" v-else
-            ><button class="inactivo">❌Inactivo❌</button>
+          <span style="background-color: green" v-if="props.row.estado == 1">
+            <button class="activo">✅Activo✅</button>
+          </span>
+          <span style="background-color: red" v-else>
+            <button class="inactivo">❌Inactivo❌</button>
           </span>
         </q-td>
       </template>
+
       <template v-slot:body-cell-opciones="props">
         <q-td :props="props" class="q-pa-sm">
-          <button @click="card = true ; categoria = props.row ; showBtn = false" class="icono"><img src="../assets/agregar2.gif" alt="editar" > </button>
-          <button v-if="props.row.estado == 1" class="icono"><img src="../assets/inactivar2.gif" alt="" ></button>
-          <button v-else class="icono"><img src="../assets/verificado.gif" alt="" ></button>
+          
+          <button @click="card = true; categoria = props.row; showBtn = false" class="icono"><img
+              src="../assets/agregar2.gif" alt="editar"> 
+          </button>
+
+          <button  @click="modificarEstado(props.row._id)" v-if="props.row.estado == 1" class="icono">
+            <img src="../assets/inactivar2.gif" alt="">
+          </button>
+
+          <button  @click="modificarEstado(props.row._id)" v-else class="icono"><img src="../assets/verificado.gif" alt="">
+          </button>
         </q-td>
-      </template> 
+      </template>
     </q-table>
   </div>
 
@@ -29,7 +41,7 @@
   <q-dialog v-model="card" class="modal">
     <q-card class="my-card">
       <div class="q-pa-md">
-        <div class="q-gutter-y-md column" >
+        <div class="q-gutter-y-md column">
 
 
           <q-field color="orange" standout bottom-slots :model-value="text" label="Nombre" stack-label counter
@@ -59,10 +71,11 @@
               <q-icon name="favorite" />
             </template>
 
-          
+
           </q-field>
 
-          <q-field color="orange" standout bottom-slots :model-value="text" label="Estado" stack-label counter clearable>
+          <q-field color="orange" standout bottom-slots :model-value="text" label="Estado" stack-label counter
+            clearable>
             <template v-slot:prepend>
               <q-icon name="place" />
             </template>
@@ -76,7 +89,7 @@
               <q-icon name="favorite" />
             </template>
 
-            
+
           </q-field>
         </div>
       </div>
@@ -86,7 +99,7 @@
           label="Editar" />
         <q-btn v-show="showBtn == true" @click="agregarCategoria(); showBtn = false" v-close-popup flat color="primary"
           label="agregar" />
-        <q-btn v-close-popup flat color="primary"  icon="close"/>
+        <q-btn v-close-popup flat color="primary" icon="close" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -100,9 +113,9 @@ import { getData, postData, putData } from "../services/apiClient.js";
 //modal
 const card = ref(false);
 let text = ref("Field content")
-const showBtn =ref(false)
-
+const showBtn = ref(false)
 //fin modal
+const categoria = ref({})
 
 
 const rows = ref([]);
@@ -136,7 +149,6 @@ let columns = ref([
 ]);
 
 const dataCategorias = async () => {
-   document.getElementById("home").style.display="none"
   try {
     const response = await getData("/categorias/categorias")
     if (response.categorias) {
@@ -152,7 +164,6 @@ const dataCategorias = async () => {
 }
 
 
-const categoria = ref({})
 
 const editarCategoria = async (id) => {
   try {
@@ -163,45 +174,57 @@ const editarCategoria = async (id) => {
         estado: categoria.value.estado
       })
 
-      if(response.categoria){
-        console.log("categoria editada");
-        Reset()
-      }
-      else{
-        console.log("error en la operacion" + error.message);
-      }
+    if (response.categoria) {
+      console.log("categoria editada");
+      Reset()
+    }
+    else {
+      console.log("error en la operacion" + error.message);
+    }
   } catch (error) {
     console.log("error al intentar editar el articulo");
   }
 }
 
 
-const agregarCategoria= async()=>{
+const agregarCategoria = async () => {
   try {
     const response = await postData("/categorias",
       {
-        nombre:categoria.value.nombre,
-        descripcion:categoria.value.descripcion,
-        estado:categoria.value.estado
+        nombre: categoria.value.nombre,
+        descripcion: categoria.value.descripcion,
+        estado: categoria.value.estado
       });
 
-      if(response.categoria){
-        console.log("se agrego la categoria correctamente");
-        dataCategorias()
-      }
-      else{
-        console.log("error en la respuesta" + error.message);
-      }
+    if (response.categoria) {
+      console.log("se agrego la categoria correctamente");
+      dataCategorias()
+    }
+    else {
+      console.log("error en la respuesta" + error.message);
+    }
   } catch (error) {
     console.log("error al agregar la categoria");
     console.log(categoria.value.estado);
   }
 }
 
-function Reset (){
-  categoria.value={
-    nombre:"",
-    descripcion:"",
+function Reset() {
+  categoria.value = {
+    nombre: "",
+    descripcion: "",
+  }
+}
+
+async function modificarEstado(id) {
+  try {
+    const response = await putData("/categorias/cambiarEstado/" + id)
+    if (response.categoria) {
+      console.log("estado editado correctamente");
+      dataCategorias()
+    }
+  } catch (error) {
+    console.log("error al modificar el estado", error.message);
   }
 }
 
@@ -211,45 +234,4 @@ onMounted(() => {
 })
 
 </script>
-<style scoped>
-
-.activo{
-  background-color: rgb(4, 151, 53);
-border: 1px;
-  
-}
-.inactivo{
-  background-color: rgb(241, 122, 128);
-   border: 1px;
-
-}
-
-.home{
-  display: none;
-}
-
-  .tabla{
-    background-color: var(--q-primary);
-    margin: 50px;
-  }
-  @media (max-width: 500px) {
-    
-    .modal{
-      margin: 0px;
-      padding: 0px;
-    }
-    .my-card{
-      margin: 0px;
-      padding: 0px;
-    }    
-    .tabla {
-        margin: 10px; /* Elimina el margen */
-    }
-    
-}
-@media (min-width: 500px) {
-    .q-gutter-y-md{
-      min-width: 400px;
-    }
-}
-</style>
+<style scoped> @import "../styles/categoria.css"; </style>

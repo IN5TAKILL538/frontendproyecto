@@ -1,6 +1,9 @@
 <template>
+  <q-toolbar>
+    <q-btn icon="home" to="/home">Inicio</q-btn>
+    <q-btn @click="showBtn = true; card = true" icon="add">Agregar cliente</q-btn>
+  </q-toolbar>
   <div>
-    <q-btn @click="showBtn = true ; card = true" icon="add">Agregar Cliente</q-btn>
 
 
 
@@ -291,36 +294,4 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-
-.activo{
-  background-color: rgb(4, 151, 53);
- border: 1px;;
-  
-}
-.inactivo{
-  background-color: rgb(241, 122, 128);
-   border: 1px;
-  
-}
-
-  .tabla{
-    background-color: var(--q-primary);
-    margin: 50px;
-  }
-.home{
-  display: none;
-}
-@media (max-width: 500px) {
-    .tabla {
-        margin: 10px; /* Elimina el margen */
-    }
-}
-@media (min-width: 500px) {
-    .q-gutter-y-md{
-      min-width: 400px;
-    }
-}
-
-</style>
-
+<style scoped> @import "../styles/clientes.css"; </style>

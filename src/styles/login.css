@@ -12,6 +12,10 @@
 }
 
 
+
+
+
+
 footer {
     width: 100%;
 }
@@ -52,7 +56,15 @@ footer {
     align-items: center;
     justify-content: center;
     width: 55%;
+    color: white;
     height: 500px;
+}
+
+.form .q-btn {
+    background-color: #adb5bd !important;
+    color: black !important;
+    box-shadow: 0 0 10px 0 rgba(255, 253, 253, 0.897);
+
 }
 
 
